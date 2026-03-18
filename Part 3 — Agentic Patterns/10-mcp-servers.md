@@ -2,7 +2,7 @@
 
 > **USB-C for AI. One protocol, infinite tools.**
 
-Your Claude can read code, write code, and run commands. But what about your Figma designs? Your Jira tickets? Your Firebase console? Your Sentry crash logs?
+Your Gemini can read code, write code, and run commands. But what about your Figma designs? Your Jira tickets? Your Firebase console? Your Sentry crash logs?
 
 That's what MCP unlocks. **Any tool, any service, one standard.**
 
@@ -10,17 +10,17 @@ That's what MCP unlocks. **Any tool, any service, one standard.**
 
 ## 🎯 What Is MCP?
 
-**Model Context Protocol** — an open standard created by Anthropic and donated to the Linux Foundation.
+**Model Context Protocol** — an open standard created by Google / Google DeepMind and donated to the Linux Foundation.
 
 MCP gives AI models a universal way to connect to external tools and data sources. Instead of every AI building custom integrations with every service, MCP provides **one protocol** that works everywhere.
 
 ```
-Before MCP:  Claude ←custom→ GitHub
-             Claude ←custom→ Figma
-             Claude ←custom→ Sentry
+Before MCP:  Gemini ←custom→ GitHub
+             Gemini ←custom→ Figma
+             Gemini ←custom→ Sentry
              (N×M integrations)
 
-After MCP:   Claude ←MCP→ Any Server
+After MCP:   Gemini ←MCP→ Any Server
              (N+M integrations)
 ```
 
@@ -67,7 +67,7 @@ flowchart LR
 | 📄 **Resources** | Data the AI can read | Figma design tokens, Jira ticket details, crash logs |
 | 📝 **Prompts** | Reusable prompt templates | Code review checklist, bug report format |
 
-For mobile devs, **Tools** are the most impactful — they let Claude take action in your workflow.
+For mobile devs, **Tools** are the most impactful — they let Gemini take action in your workflow.
 
 ---
 
@@ -90,9 +90,25 @@ Here are the servers that matter most for iOS/Android teams:
 
 ## ⚙️ Setup
 
-### Adding MCP Servers to Claude Code
+### Adding MCP Servers to Gemini CLI
 
-MCP servers are configured in your project's `.claude/settings.json`:
+MCP servers can be added via the `gemini mcp add` command, or configured in your project's `.gemini/settings.json`:
+
+```bash
+# Add servers via CLI
+gemini mcp add github -- npx -y @anthropic/github-mcp-server
+gemini mcp add figma -- npx -y figma-mcp-server
+gemini mcp add firebase -- npx -y firebase-mcp-server
+gemini mcp add sentry -- npx -y sentry-mcp-server
+
+# List configured servers
+gemini mcp list
+
+# Remove a server
+gemini mcp remove github
+```
+
+Or configure directly in `.gemini/settings.json`:
 
 ```json
 {
@@ -106,21 +122,21 @@ MCP servers are configured in your project's `.claude/settings.json`:
     },
     "figma": {
       "command": "npx",
-      "args": ["-y", "@anthropic/figma-mcp-server"],
+      "args": ["-y", "figma-mcp-server"],
       "env": {
         "FIGMA_ACCESS_TOKEN": "${FIGMA_ACCESS_TOKEN}"
       }
     },
     "firebase": {
       "command": "npx",
-      "args": ["-y", "@anthropic/firebase-mcp-server"],
+      "args": ["-y", "firebase-mcp-server"],
       "env": {
         "GOOGLE_APPLICATION_CREDENTIALS": "${GOOGLE_APPLICATION_CREDENTIALS}"
       }
     },
     "sentry": {
       "command": "npx",
-      "args": ["-y", "@anthropic/sentry-mcp-server"],
+      "args": ["-y", "sentry-mcp-server"],
       "env": {
         "SENTRY_AUTH_TOKEN": "${SENTRY_AUTH_TOKEN}"
       }
@@ -131,31 +147,31 @@ MCP servers are configured in your project's `.claude/settings.json`:
 
 **Key points:**
 - 🔑 Use `${ENV_VAR}` syntax to keep secrets out of config files
-- 📁 Commit `.claude/settings.json` to your repo (tokens stay in env)
-- 🔄 Servers start automatically when Claude Code opens your project
+- 📁 Commit `.gemini/settings.json` to your repo (tokens stay in env)
+- 🔄 Servers start automatically when Gemini CLI opens your project
 
 ### Scoped Configurations
 
 | Scope | File | Use For |
 |-------|------|---------|
-| Project | `.claude/settings.json` | Team-shared servers |
-| User | `~/.claude/settings.json` | Personal API tokens |
+| Project | `.gemini/settings.json` | Team-shared servers |
+| User | `~/.gemini/settings.json` | Personal API tokens |
 
 ---
 
 ## 🔍 MCP Tool Search
 
-With 10,000+ servers, you don't want to load everything. Claude Code supports **dynamic tool discovery** — search for tools on demand instead of loading all at once.
+With 10,000+ servers, you don't want to load everything. Gemini CLI supports **dynamic tool discovery** — search for tools on demand instead of loading all at once.
 
 ```
 You: "Find the Sentry error for crash #4521 and create a GitHub issue"
 
-Claude: *searches available MCP tools* → finds sentry.get_issue + github.create_issue
+Gemini: *searches available MCP tools* → finds sentry.get_issue + github.create_issue
         *calls sentry.get_issue(4521)* → gets crash details
         *calls github.create_issue(...)* → creates issue with full stack trace
 ```
 
-This keeps your context window lean. Only the tools Claude actually needs get loaded.
+This keeps your context window lean. Only the tools Gemini actually needs get loaded.
 
 ---
 
@@ -166,7 +182,7 @@ Individual servers are useful. **Chaining them is magic.**
 ```mermaid
 flowchart LR
     A["📋 Jira MCP\nRead ticket TPE-342"] --> B["🐙 GitHub MCP\nCheck related PRs"]
-    B --> C["🤖 Claude\nImplement feature"]
+    B --> C["🤖 Gemini\nImplement feature"]
     C --> D["🐙 GitHub MCP\nCreate PR"]
     D --> E["📋 Jira MCP\nUpdate ticket → In Review"]
     E --> F["💬 Slack MCP\nNotify team channel"]
@@ -185,7 +201,7 @@ flowchart LR
 Prompt:
 "Read Jira ticket TPE-342, check if there's already a GitHub PR for it.
 If not, implement the feature described in the ticket following our
-CLAUDE.md conventions. Create a PR, link it to the Jira ticket,
+GEMINI.md conventions. Create a PR, link it to the Jira ticket,
 and move the ticket to 'In Review'."
 ```
 
@@ -193,7 +209,7 @@ and move the ticket to 'In Review'."
 
 1. 📋 **Jira MCP** → Reads ticket: "Add comment count badge to TaskListView"
 2. 🐙 **GitHub MCP** → Searches PRs: no existing PR found
-3. 🤖 **Claude** → Implements the feature following your patterns
+3. 🤖 **Gemini** → Implements the feature following your patterns
 4. 🐙 **GitHub MCP** → Creates PR with ticket reference
 5. 📋 **Jira MCP** → Moves TPE-342 to "In Review", adds PR link
 6. 💬 **Slack MCP** → Posts to #taskpulse-dev: "PR #287 ready for review"
@@ -208,14 +224,14 @@ Here's how MCP servers connect to the TaskPulse workflow:
 
 ```mermaid
 flowchart TB
-    Claude["🤖 Claude Code"]
+    Gemini["🤖 Gemini CLI"]
 
-    Claude <-->|"MCP Protocol"| GH["🐙 GitHub\nCode + PRs"]
-    Claude <-->|"MCP Protocol"| FG["🎨 Figma\nDesigns"]
-    Claude <-->|"MCP Protocol"| FB["🔥 Firebase\nBackend"]
-    Claude <-->|"MCP Protocol"| SN["🐛 Sentry\nCrashes"]
-    Claude <-->|"MCP Protocol"| JR["📋 Jira\nTickets"]
-    Claude <-->|"MCP Protocol"| SL["💬 Slack\nComms"]
+    Gemini <-->|"MCP Protocol"| GH["🐙 GitHub\nCode + PRs"]
+    Gemini <-->|"MCP Protocol"| FG["🎨 Figma\nDesigns"]
+    Gemini <-->|"MCP Protocol"| FB["🔥 Firebase\nBackend"]
+    Gemini <-->|"MCP Protocol"| SN["🐛 Sentry\nCrashes"]
+    Gemini <-->|"MCP Protocol"| JR["📋 Jira\nTickets"]
+    Gemini <-->|"MCP Protocol"| SL["💬 Slack\nComms"]
 
     GH --- R1["PRs, issues,\ncode search"]
     FG --- R2["Design tokens,\ncomponent specs"]
@@ -224,7 +240,7 @@ flowchart TB
     JR --- R5["Sprint board,\nticket details"]
     SL --- R6["Team updates,\nalerts"]
 
-    style Claude fill:#fef3c7,stroke:#f59e0b
+    style Gemini fill:#fef3c7,stroke:#f59e0b
     style GH fill:#dbeafe,stroke:#3b82f6
     style FG fill:#ede9fe,stroke:#8b5cf6
     style FB fill:#fee2e2,stroke:#ef4444
@@ -239,9 +255,9 @@ flowchart TB
 
 1. **Start with GitHub MCP.** It's the highest-value server for any dev team. PR automation alone saves hours.
 
-2. **Add Figma MCP for pixel-perfect UI.** Claude can read your actual design tokens instead of guessing colors and spacing.
+2. **Add Figma MCP for pixel-perfect UI.** Gemini can read your actual design tokens instead of guessing colors and spacing.
 
-3. **Chain servers in your CLAUDE.md.** Add a workflow section:
+3. **Chain servers in your GEMINI.md.** Add a workflow section:
    ```markdown
    ## Workflow
    When implementing a Jira ticket:
@@ -257,12 +273,12 @@ flowchart TB
 
 ## 🧪 Try It Now
 
-1. **Set up GitHub MCP** in your project's `.claude/settings.json`. Test it:
+1. **Set up GitHub MCP** in your project's `.gemini/settings.json`. Test it:
    ```
    "List my open PRs and summarize which ones need review"
    ```
 
-2. **Chain two servers.** Set up Jira/Linear + GitHub MCP. Ask Claude:
+2. **Chain two servers.** Set up Jira/Linear + GitHub MCP. Ask Gemini:
    ```
    "Read ticket [YOUR-TICKET] and create a branch + PR skeleton for it"
    ```

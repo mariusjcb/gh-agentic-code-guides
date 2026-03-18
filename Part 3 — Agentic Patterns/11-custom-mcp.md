@@ -29,12 +29,12 @@ Here's what mobile teams are building:
 |-----------|----------------|----------------|
 | 🍎 **App Store Connect** | Crash reports, review status, metadata | Investigate production crashes without leaving the IDE |
 | 🤖 **Play Console** | ANR data, release tracking, reviews | Monitor Android vitals from your coding session |
-| 📚 **Internal Wiki** | Confluence/Notion architecture docs | Claude reads your actual architecture decisions |
+| 📚 **Internal Wiki** | Confluence/Notion architecture docs | Gemini reads your actual architecture decisions |
 | 🎨 **Design System** | Component catalog, tokens, usage examples | AI generates UI that matches your design system exactly |
 | 🔧 **CI/CD Pipeline** | Bitrise/CircleCI status, trigger builds | Check build status and trigger runs from prompts |
 | 📏 **Code Metrics** | Coverage reports, complexity scores | AI sees quality metrics before making changes |
 
-The 🎨 **Design System MCP** and 📚 **Internal Wiki MCP** are the highest-impact for most teams. They give Claude the context it's always missing.
+The 🎨 **Design System MCP** and 📚 **Internal Wiki MCP** are the highest-impact for most teams. They give Gemini the context it's always missing.
 
 ---
 
@@ -44,7 +44,7 @@ Every MCP server has the same structure:
 
 ```mermaid
 flowchart TB
-    CC["🤖 Claude Code"] <-->|"JSON-RPC\nover stdio/HTTP"| TR["🔌 Transport Layer"]
+    CC["🤖 Gemini CLI"] <-->|"JSON-RPC\nover stdio/HTTP"| TR["🔌 Transport Layer"]
     TR <--> SV["⚙️ MCP Server"]
 
     SV --> TD["🔧 Tool Definitions\nname + description + schema"]
@@ -80,7 +80,7 @@ flowchart TB
 
 ## 📝 Build a "Coding Standards" MCP Server
 
-Let's build something immediately useful — an MCP server that exposes your team's coding standards to Claude.
+Let's build something immediately useful — an MCP server that exposes your team's coding standards to Gemini.
 
 ### Step 1: Project Setup
 
@@ -258,9 +258,15 @@ async function main() {
 main().catch(console.error);
 ```
 
-### Step 3: Configure in Claude Code
+### Step 3: Configure in Gemini CLI
 
-Add to `.claude/settings.json`:
+Add the server using the CLI:
+
+```bash
+gemini mcp add coding-standards -- npx tsx /path/to/coding-standards-mcp/src/index.ts
+```
+
+Or add directly to `.gemini/settings.json`:
 
 ```json
 {
@@ -278,14 +284,14 @@ Add to `.claude/settings.json`:
 ```
 You: "What are our Swift naming conventions?"
 
-Claude: *calls get_swift_conventions()* →
+Gemini: *calls get_swift_conventions()* →
 "Your Swift conventions require:
 - Views use *View suffix (TaskListView, CommentInputView)
 - ViewModels use *ViewModel suffix with @MainActor
 - Repositories use *Repository suffix with protocol + implementation..."
 ```
 
-Now Claude **always** knows your team's conventions — without stuffing them into CLAUDE.md.
+Now Gemini **always** knows your team's conventions — without stuffing them into GEMINI.md.
 
 ---
 
@@ -296,7 +302,7 @@ Custom MCP servers have access to whatever you give them. Be careful.
 | Concern | Mitigation |
 |---------|-----------|
 | **API credentials** | Use environment variables, never hardcode |
-| **Data scope** | Only expose what Claude needs — not your entire database |
+| **Data scope** | Only expose what Gemini needs — not your entire database |
 | **Write access** | Start read-only. Add writes cautiously with confirmation |
 | **Rate limiting** | Implement rate limits to prevent runaway token-burning loops |
 | **Authentication** | Use short-lived tokens, rotate regularly |
@@ -320,7 +326,7 @@ Custom MCP servers have access to whatever you give them. Be careful.
 }
 ```
 
-Uses `stdio` transport. Runs as a subprocess of Claude Code.
+Uses `stdio` transport. Runs as a subprocess of Gemini CLI.
 
 ### Docker (Team Sharing)
 
@@ -366,9 +372,9 @@ Best for: CI/CD environments, shared team infrastructure, centralized configurat
 
 Priority order for mobile teams:
 
-1. **🎨 Design System MCP** — Highest ROI. Claude generates UI that matches your design system.
-2. **📚 Architecture Wiki MCP** — Give Claude access to your ADRs and architecture decisions.
-3. **📏 Coding Standards MCP** — Enforce conventions without relying on CLAUDE.md alone.
+1. **🎨 Design System MCP** — Highest ROI. Gemini generates UI that matches your design system.
+2. **📚 Architecture Wiki MCP** — Give Gemini access to your ADRs and architecture decisions.
+3. **📏 Coding Standards MCP** — Enforce conventions without relying on GEMINI.md alone.
 4. **🔧 CI/CD MCP** — Check build status and trigger runs from prompts.
 5. **🍎/🤖 Store Console MCP** — Production crash investigation workflow.
 
@@ -378,7 +384,7 @@ Priority order for mobile teams:
 
 1. **Clone the Coding Standards MCP.** Copy the TypeScript code above and customize it with YOUR team's conventions.
 
-2. **Add it to your project.** Configure it in `.claude/settings.json` and test with:
+2. **Add it to your project.** Configure it in `.gemini/settings.json` and test with:
    ```
    "What are our architecture rules for the data layer?"
    ```
@@ -390,7 +396,7 @@ Priority order for mobile teams:
    - What data would it need access to?
    - Read-only or read-write?
 
-5. **Share with your team.** Dockerize your MCP server and add it to the project's `.claude/settings.json` so everyone benefits.
+5. **Share with your team.** Dockerize your MCP server and add it to the project's `.gemini/settings.json` so everyone benefits.
 
 ---
 
