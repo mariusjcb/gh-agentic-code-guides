@@ -153,6 +153,54 @@ UI is shared across all Features modules.
 
 ---
 
+## 📂 `.claude/rules/` — Modular Rule Files
+
+Beyond `@imports`, Claude Code supports a dedicated **rules directory** for topic-specific guidance:
+
+```
+.claude/
+├── rules/
+│   ├── testing.md          # Testing standards and patterns
+│   ├── data-visualization.md  # Chart/graph conventions
+│   ├── accessibility.md    # A11y requirements
+│   └── security.md         # Security-critical rules
+```
+
+Rules in `.claude/rules/*.md` are loaded **contextually** — Claude picks the relevant ones based on what you're working on. Unlike `@imports` (which always load), rules activate when they match the task.
+
+This is useful when your project has many specialized concerns that don't all need to be present in every session.
+
+> **Rules vs. @imports:** Use `@imports` for always-relevant context (architecture, build commands). Use `rules/` for domain-specific guidance that only applies sometimes.
+
+---
+
+## 🧠 Auto Memory (`/memory`)
+
+CLAUDE.md is **your** manual memory. Claude Code also has **automatic memory** — notes it writes itself across sessions.
+
+```bash
+# Toggle auto memory on/off
+/memory
+```
+
+When enabled (on by default), Claude saves notes about:
+- Build commands it discovered
+- Debugging insights from past sessions
+- Architecture patterns it learned
+- Your code style preferences
+- Workflow habits it observed
+
+Auto memory accumulates knowledge across sessions without you writing anything. Think of it as Claude keeping its own notes alongside your CLAUDE.md.
+
+| Memory Type | Who Writes It | When It Loads | Editable? |
+|-------------|---------------|---------------|-----------|
+| **CLAUDE.md** | You | Every session | Yes, it's your file |
+| **Auto Memory** | Claude | Every session | Toggle with `/memory` |
+
+**Tip:** Start with auto memory on. After a few sessions, check what Claude has learned. If it picked up bad habits, toggle it off and rely on CLAUDE.md alone.
+
+---
+
 ## 🚫 .claudeignore
 
 Keep AI focused. Exclude noise.
