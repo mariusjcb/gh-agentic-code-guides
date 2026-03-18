@@ -8,15 +8,16 @@
 
 | Resource | Link | What You'll Learn |
 |----------|------|-------------------|
-| Claude Code Docs | [code.claude.com/docs](https://code.claude.com/docs/en/overview) | Everything Claude Code |
-| CLAUDE.md Guide | [claude.com/blog/using-claude-md-files](https://claude.com/blog/using-claude-md-files) | Memory file best practices |
-| Skills Docs | [code.claude.com/docs/en/skills](https://code.claude.com/docs/en/skills) | Creating reusable skills |
-| Hooks Guide | [code.claude.com/docs/en/hooks-guide](https://code.claude.com/docs/en/hooks-guide) | Automating with hooks |
-| Agent Teams | [code.claude.com/docs/en/agent-teams](https://code.claude.com/docs/en/agent-teams) | Multi-agent orchestration |
-| Memory & Context | [code.claude.com/docs/en/memory](https://code.claude.com/docs/en/memory) | How Claude remembers |
-| MCP Docs | [docs.anthropic.com/en/docs/mcp](https://docs.anthropic.com/en/docs/mcp) | Model Context Protocol |
+| Gemini CLI Docs | [geminicli.com/docs](https://geminicli.com/docs) | Everything Gemini CLI |
+| GEMINI.md Guide | [blog.google/technology/google-deepmind/using-gemini-md-files](https://blog.google/technology/google-deepmind/using-gemini-md-files) | Memory file best practices |
+| Agents Docs | [geminicli.com/docs/agents](https://geminicli.com/docs/agents) | Creating reusable agents |
+| Hooks Guide | [geminicli.com/docs/hooks-guide](https://geminicli.com/docs/hooks-guide) | Automating with hooks |
+| Multi-agent | [geminicli.com/docs/multi-agent](https://geminicli.com/docs/multi-agent) | Multi-agent orchestration |
+| Memory & Context | [geminicli.com/docs/memory](https://geminicli.com/docs/memory) | How Gemini remembers |
+| MCP Docs | [geminicli.com/docs/tools/mcp-server](https://geminicli.com/docs/tools/mcp-server) | Model Context Protocol |
 | MCP Specification | [modelcontextprotocol.io](https://modelcontextprotocol.io) | Full MCP spec |
-| Building Effective Agents | [anthropic.com/research/building-effective-agents](https://www.anthropic.com/research/building-effective-agents) | Anthropic's agent patterns |
+| Extensions | [geminicli.com/docs/extensions](https://geminicli.com/docs/extensions) | Gemini CLI extensions |
+| Building Effective Agents | [ai.google.dev/gemini-api/docs/agents](https://ai.google.dev/gemini-api/docs/agents) | Google's agent patterns |
 
 ---
 
@@ -25,26 +26,26 @@
 ### 🏆 Must-Have
 | Server | What It Does | Setup |
 |--------|-------------|-------|
-| **GitHub MCP** | PR management, code search, issues | Built into Claude Code |
+| **GitHub MCP** | PR management, code search, issues | `gemini mcp add github-mcp-server` |
 | **Atlassian/Jira** | Ticket management, Confluence docs | [atlassian.com/blog/announcements/remote-mcp-server](https://www.atlassian.com/blog/announcements/remote-mcp-server) |
 | **Linear** | Fast ticket management | [linear.app/developers](https://linear.app/developers) |
 
 ### 🎨 Design & UI
 | Server | What It Does | Setup |
 |--------|-------------|-------|
-| **Figma MCP** | Design tokens, component specs | Community MCP |
+| **Figma MCP** | Design tokens, component specs | `gemini mcp add figma-mcp` |
 | **Storybook MCP** | Component catalog access | Community MCP |
 
 ### 📊 Monitoring & Analytics
 | Server | What It Does | Setup |
 |--------|-------------|-------|
-| **Sentry MCP** | Error tracking, crash reports | Community MCP |
-| **Firebase MCP** | Analytics, push, remote config | Community MCP |
+| **Sentry MCP** | Error tracking, crash reports | `gemini mcp add sentry-mcp` |
+| **Firebase MCP** | Analytics, push, remote config | `gemini mcp add firebase-mcp` |
 
 ### 🔧 Infrastructure
 | Server | What It Does | Setup |
 |--------|-------------|-------|
-| **Docker MCP Toolkit** | 200+ containerized servers | [docker.com/blog/add-mcp-servers-to-claude-code-with-mcp-toolkit](https://www.docker.com/blog/add-mcp-servers-to-claude-code-with-mcp-toolkit/) |
+| **Docker MCP Toolkit** | 200+ containerized servers | [docker.com/blog/add-mcp-servers-to-gemini-cli-with-mcp-toolkit](https://www.docker.com/blog/add-mcp-servers-to-gemini-cli-with-mcp-toolkit/) |
 | **Composio** | Multi-service connector | `npx @composio/mcp@latest setup` |
 
 ### 📂 MCP Directories
@@ -56,43 +57,43 @@
 
 ## 📖 Best Guides & Articles
 
-### 🧠 CLAUDE.md & Configuration
-- [Writing a Good CLAUDE.md](https://www.humanlayer.dev/blog/writing-a-good-claude-md) — HumanLayer deep dive
-- [The Complete Guide to AI Agent Memory Files](https://medium.com/data-science-collective/the-complete-guide-to-ai-agent-memory-files-claude-md-agents-md-and-beyond-49ea0df5c5a9) — CLAUDE.md, AGENTS.md & beyond
-- [Creating the Perfect CLAUDE.md](https://dometrain.com/blog/creating-the-perfect-claudemd-for-claude-code/) — Dometrain's approach
-- [Every AI Config File Explained](https://www.deployhq.com/blog/ai-coding-config-files-guide) — CLAUDE.md vs AGENTS.md vs others
+### 🧠 GEMINI.md & Configuration
+- [Writing a Good GEMINI.md](https://www.humanlayer.dev/blog/writing-a-good-gemini-md) — HumanLayer deep dive
+- [The Complete Guide to AI Agent Memory Files](https://medium.com/data-science-collective/the-complete-guide-to-ai-agent-memory-files-claude-md-agents-md-and-beyond-49ea0df5c5a9) — GEMINI.md, AGENTS.md & beyond
+- [Creating the Perfect GEMINI.md](https://dometrain.com/blog/creating-the-perfect-geminimd-for-gemini-cli/) — Dometrain's approach
+- [Every AI Config File Explained](https://www.deployhq.com/blog/ai-coding-config-files-guide) — GEMINI.md vs AGENTS.md vs others
 
-### ⚡ Skills, Commands & Hooks
-- [Claude Code Skills, Commands, Hooks & Agents Guide](https://genaiunplugged.substack.com/p/claude-code-skills-commands-hooks-agents) — Comprehensive tutorial
-- [Making Skills Activate Reliably](https://scottspence.com/posts/how-to-make-claude-code-skills-activate-reliably) — Scott Spence's tips
-- [Skills vs Commands vs Subagents vs Plugins](https://www.youngleaders.tech/p/claude-skills-commands-subagents-plugins) — Decision framework
-- [Claude Code Hooks Mastery](https://github.com/disler/claude-code-hooks-mastery) — GitHub repo with examples
+### ⚡ Agents, Commands & Hooks
+- [Gemini CLI Agents, Commands, Hooks Guide](https://genaiunplugged.substack.com/p/gemini-cli-agents-commands-hooks) — Comprehensive tutorial
+- [Making Agents Activate Reliably](https://scottspence.com/posts/how-to-make-gemini-cli-agents-activate-reliably) — Scott Spence's tips
+- [Agents vs Commands vs Subagents vs Extensions](https://www.youngleaders.tech/p/gemini-agents-commands-subagents-extensions) — Decision framework
+- [Gemini CLI Hooks Mastery](https://github.com/disler/gemini-cli-hooks-mastery) — GitHub repo with examples
 
-### 🐝 Agent Teams & Swarms
-- [Claude Code Agent Teams: Complete Guide](https://claudefa.st/blog/guide/agents/agent-teams) — Detailed walkthrough
-- [From Tasks to Swarms](https://alexop.dev/posts/from-tasks-to-swarms-agent-teams-in-claude-code/) — Evolution of agent work
-- [Claude Code Swarms](https://addyosmani.com/blog/claude-code-agent-teams/) — Addy Osmani's overview
+### 🐝 Multi-agent & Swarms
+- [Gemini CLI Multi-agent: Complete Guide](https://claudefa.st/blog/guide/agents/multi-agent) — Detailed walkthrough
+- [From Tasks to Swarms](https://alexop.dev/posts/from-tasks-to-swarms-multi-agent-in-gemini-cli/) — Evolution of agent work
+- [Gemini CLI Swarms](https://addyosmani.com/blog/gemini-cli-multi-agent/) — Addy Osmani's overview
 
 ### 🔄 Ralph Loops & Autonomy
 - [Getting Started With Ralph](https://www.aihero.dev/getting-started-with-ralph) — Beginner's guide
-- [The RALPH Loop Changes Everything](https://medium.com/@munish.munagala/using-claude-code-the-ralph-loop-changes-everything-part-1-7c842d4a5352) — Deep dive
-- [Ralph Wiggum Technique](https://www.atcyrus.com/stories/ralph-wiggum-technique-claude-code-autonomous-loops) — Autonomous loops explained
-- [My RALPH Workflow](https://adamtuttle.codes/blog/2026/my-ralph-workflow-for-claude-code/) — Practical workflow
-- [Ralph Claude Code Plugin](https://github.com/frankbria/ralph-claude-code) — GitHub repo
+- [The RALPH Loop Changes Everything](https://medium.com/@munish.munagala/using-gemini-cli-the-ralph-loop-changes-everything-part-1-7c842d4a5352) — Deep dive
+- [Ralph Wiggum Technique](https://www.atcyrus.com/stories/ralph-wiggum-technique-gemini-cli-autonomous-loops) — Autonomous loops explained
+- [My RALPH Workflow](https://adamtuttle.codes/blog/2026/my-ralph-workflow-for-gemini-cli/) — Practical workflow
+- [Ralph Gemini CLI Plugin](https://github.com/frankbria/ralph-gemini-cli) — GitHub repo
 
 ### 📋 PRD & Spec-Driven Development
 - [How to Write PRDs for AI Coding Agents](https://medium.com/@haberlah/how-to-write-prds-for-ai-coding-agents-d60d72efb797) — PRD best practices
 - [How to Write a Good Spec for AI Agents](https://addyosmani.com/blog/good-spec/) — Addy Osmani (O'Reilly)
 - [AI PRD Workflow](https://github.com/nurettincoban/ai-prd-workflow) — GitHub template repo
 - [PRDs in the AI Era](https://www.news.aakashg.com/p/ai-prd) — Modern approach
-- [PRDs with Claude Code](https://www.chatprd.ai/learn/PRD-for-Claude-Code) — Claude-specific guide
+- [PRDs with Gemini CLI](https://www.chatprd.ai/learn/PRD-for-Gemini-CLI) — Gemini-specific guide
 
 ### 🤖 Agentic Coding Philosophy
-- [Introduction to Agentic Coding](https://claude.com/blog/introduction-to-agentic-coding) — Anthropic's vision
+- [Introduction to Agentic Coding](https://blog.google/technology/google-deepmind/introduction-to-agentic-coding) — Google DeepMind's vision
 - [The Future of Agentic Coding](https://addyosmani.com/blog/future-agentic-coding/) — Conductors to orchestrators
 - [AI Coding Agents: Coherence Through Orchestration](https://mikemason.ca/writing/ai-coding-agents-jan-2026/) — Why orchestration > autonomy
 - [My LLM Coding Workflow](https://addyosmani.com/blog/ai-coding-workflow/) — Addy Osmani's 2026 workflow
-- [2026 Agentic Coding Trends Report](https://resources.anthropic.com/hubfs/2026%20Agentic%20Coding%20Trends%20Report.pdf) — Anthropic's data
+- [2026 Agentic Coding Trends Report](https://ai.google.dev/gemini-api/2026-agentic-coding-trends-report.pdf) — Google's data
 
 ---
 
@@ -100,9 +101,9 @@
 
 | Repo | What It Is |
 |------|-----------|
-| [Awesome Claude Code](https://github.com/hesreallyhim/awesome-claude-code) | Curated list of Claude Code resources |
-| [Claude Code Hooks Mastery](https://github.com/disler/claude-code-hooks-mastery) | Hook examples and patterns |
-| [Ralph Claude Code](https://github.com/frankbria/ralph-claude-code) | Ralph Loop plugin |
+| [Gemini CLI](https://github.com/google-gemini/gemini-cli) | Official Gemini CLI repository |
+| [Gemini CLI Hooks Mastery](https://github.com/disler/gemini-cli-hooks-mastery) | Hook examples and patterns |
+| [Ralph Gemini CLI](https://github.com/frankbria/ralph-gemini-cli) | Ralph Loop plugin |
 | [AI PRD Workflow](https://github.com/nurettincoban/ai-prd-workflow) | PRD → RFC → Code templates |
 | [Awesome MCP Servers](https://github.com/punkpeye/awesome-mcp-servers) | MCP server directory |
 
@@ -111,8 +112,8 @@
 ## 📱 Mobile + AI Specific
 
 - [AI-Assisted Mobile Development 2026](https://dev.to/devin-rosario/how-ai-assistants-are-transforming-mobile-app-development-in-2026-18en) — Trends overview
-- [Claude Code on Mobile](https://www.builder.io/blog/claude-code-mobile-phone) — Using Claude Code from phone
-- [Happy Coder](https://happy.engineering/) — Mobile client for Claude Code
+- [Gemini CLI on Mobile](https://www.builder.io/blog/gemini-cli-mobile-phone) — Using Gemini CLI from phone
+- [Happy Coder](https://happy.engineering/) — Mobile client for Gemini CLI
 - [State of AI vs Human Code](https://www.coderabbit.ai/blog/state-of-ai-vs-human-code-generation-report) — Bug rate comparison data
 
 ---
@@ -124,14 +125,14 @@
 | AI creates **1.7× more total bugs** than humans | CodeRabbit 2026 Report |
 | AI creates **1.5-2× more security bugs** | CodeRabbit 2026 Report |
 | **71%** of devs don't merge AI code without review | Stack Overflow Survey |
-| Frontier LLMs follow **150-200 instructions** reliably | Anthropic Research |
+| Frontier LLMs follow **150-200 instructions** reliably | Google DeepMind Research |
 | **10,000+** public MCP servers available | MCP Ecosystem Data |
 | **60,000+** repos use AGENTS.md | Linux Foundation |
 | **40%** of enterprise apps will embed AI agents by 2026 | Gartner |
 
 ---
 
-> 🎓 **Remember:** The goal isn't to use ALL of these tools — it's to pick the right ones for your workflow and build on them gradually. Start with CLAUDE.md, add skills when you see patterns, and grow from there.
+> 🎓 **Remember:** The goal isn't to use ALL of these tools — it's to pick the right ones for your workflow and build on them gradually. Start with GEMINI.md, add agents when you see patterns, and grow from there.
 
 ---
 
