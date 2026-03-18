@@ -16,7 +16,7 @@
 | **User Settings** | `~/.gemini/settings.json` | Global user-level preferences |
 | **MCP Config** | `.gemini/settings.json` → `mcpServers` | MCP server connections |
 | **Hooks** | `.gemini/settings.json` → `hooks` | Pre/post event triggers |
-| **Extensions** | `.gemini/extensions/` | Custom extensions for added capabilities |
+| **Extensions** | `.gemini/extensions/` | Custom extensions for additional capabilities |
 
 ---
 
@@ -33,8 +33,8 @@
 | 🔍 Quick focused research | **Subagent** | Scoped context, doesn't pollute main chat | 0 min |
 | 👥 Parallel independent work | **Multi-agent** | Multiple agents work via shell tool delegation | 5 min |
 | 🔌 External data / tools | **MCP Server** | Standardized protocol for integrations | 30 min |
-| 🧩 Extended capabilities | **Extension** | Add new tools via `.gemini/extensions/` | 15 min |
 | 🤖 Full autonomous implementation | **Ralph Loop** | Self-correcting build→test→fix cycle | 5 min |
+| 🧩 Extended capabilities | **Extension** | Custom extensions in `.gemini/extensions/` | 15 min |
 
 ### Quick Decision Flowchart
 
@@ -195,7 +195,7 @@ xcodebuild test -scheme TaskPulse -destination 'platform=iOS Simulator,name=iPho
 ## 🎯 The Golden Rules
 
 1. **Context is everything** — GEMINI.md > clever prompting
-2. **Plan before code** — /plan saves hours of rework
+2. **Plan before code** — `/plan` saves hours of rework
 3. **Verify every step** — Ralph Loop: build, test, fix, repeat
 4. **Understand before changing** — Explore → impact analysis → implement
 5. **Agents > repeating yourself** — If you've said it 3x, make it an agent
