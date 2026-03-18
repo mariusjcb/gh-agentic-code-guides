@@ -77,7 +77,7 @@ ENVIRONMENT:
 
 ### Step 3: Hypothesis Generation and Validation
 
-Claude generates hypotheses. Now **validate each one**.
+Gemini generates hypotheses. Now **validate each one**.
 
 ```
 "Let's test Hypothesis 1: Race condition in TaskDetailViewModel.
@@ -267,8 +267,8 @@ Show each issue with file, line, and fix."
 
 1. **Find a recent crash** in your project's crash reporting tool
 2. **Build an evidence bundle** — crash log, stack trace, recent changes
-3. **Ask Claude to generate 3 hypotheses** for the root cause
-4. **Validate the top hypothesis** — ask Claude to search for supporting evidence in your code
+3. **Ask Gemini to generate 3 hypotheses** for the root cause
+4. **Validate the top hypothesis** — ask Gemini to search for supporting evidence in your code
 5. **Find similar patterns** — search for the same anti-pattern across your codebase
 
 > 🏆 **Success:** You identify a root cause that would have taken hours of manual debugging in under 20 minutes.

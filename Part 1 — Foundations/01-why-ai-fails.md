@@ -281,4 +281,4 @@ The difference? **Context.** Let's build yours.
 
 ---
 
-← Previous | [🗺️ Course Map](../00-course-map.md) | [Next: Your First CLAUDE.md →](02-claude-md-basics.md)
+← Previous | [🗺️ Course Map](../00-course-map.md) | [Next: Your First GEMINI.md →](02-gemini-md-basics.md)

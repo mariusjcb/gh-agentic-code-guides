@@ -28,7 +28,7 @@ Each step **reduces ambiguity** and **increases AI accuracy**. A well-written ti
 
 ## 📝 Writing AI-Friendly PRDs
 
-Your PRD is the **single source of truth**. Claude reads it before every implementation session. Here's the template:
+Your PRD is the **single source of truth**. Gemini reads it before every implementation session. Here's the template:
 
 ```markdown
 # PRD: [Feature Name]
@@ -124,7 +124,7 @@ One paragraph. What this RFC covers.
 
 ## 🎫 Tickets from RFCs
 
-One RFC → **2–5 tickets**. Each ticket is a single Claude session.
+One RFC → **2–5 tickets**. Each ticket is a single Gemini CLI session.
 
 | RFC | Ticket | Scope |
 |-----|--------|-------|
@@ -135,7 +135,7 @@ One RFC → **2–5 tickets**. Each ticket is a single Claude session.
 | RFC-3: UI Updates | TP-44 | Offline indicator component |
 | RFC-3: UI Updates | TP-45 | Sync status in task list |
 
-**Each ticket prompt to Claude:**
+**Each ticket prompt to Gemini CLI:**
 
 ```
 Read @PRD.md and @RFC-001.md.
@@ -234,8 +234,8 @@ Follow existing patterns in TaskPulse/Sync/.
 
 1. **Pick a feature** in your current project that needs building
 2. **Write a mini-PRD** using the template above (15 min max)
-3. **Ask Claude:** *"Break this PRD into 2-3 RFCs with 30-50 requirements each"*
-4. **Ask Claude:** *"Generate Jira tickets from RFC-1 with acceptance criteria"*
+3. **Ask Gemini:** *"Break this PRD into 2-3 RFCs with 30-50 requirements each"*
+4. **Ask Gemini:** *"Generate Jira tickets from RFC-1 with acceptance criteria"*
 5. **Implement one ticket** using the PRD + RFC as context
 
 > 🏆 **Success:** You'll notice AI output is dramatically more focused when it has a spec to follow.

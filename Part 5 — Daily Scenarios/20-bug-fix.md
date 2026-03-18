@@ -341,7 +341,7 @@ Pick the most practical option and implement it."
 
 1. **Pick a known bug** in your project (or introduce one intentionally in a branch)
 2. **Write a failing test** that reproduces it — don't fix anything yet
-3. **Ask Claude for the minimal fix** — "fewest lines changed"
+3. **Ask Gemini for the minimal fix** — "fewest lines changed"
 4. **Run the full test suite** — confirm zero regressions
 5. **Add a guardrail** — lint rule, CI check, or pattern test
 

@@ -2,7 +2,7 @@
 
 > **One config file. Every AI tool. Zero vendor lock-in.**
 
-What if your team uses Claude Code, but your contractor uses Cursor, and your CI runs GitHub Copilot? You'd need three config files — unless you use AGENTS.md.
+What if your team uses Gemini CLI, but your contractor uses Cursor, and your CI runs GitHub Copilot? You'd need three config files — unless you use AGENTS.md.
 
 ---
 
@@ -12,7 +12,7 @@ AGENTS.md is an **open standard** from the Linux Foundation that any AI coding t
 
 ```mermaid
 flowchart TD
-    A[AGENTS.md] --> B[Claude Code]
+    A[AGENTS.md] --> B[Gemini CLI]
     A --> C[GitHub Copilot]
     A --> D[Cursor]
     A --> E[OpenAI Codex]
@@ -24,35 +24,35 @@ flowchart TD
 **The numbers:**
 - 📊 Adopted by **60,000+ repositories** since launch
 - 🏢 Backed by the **Linux Foundation**
-- 🔧 Supported by Claude, Copilot, Cursor, Codex, and growing
+- 🔧 Supported by Gemini, Copilot, Cursor, Codex, and growing
 
-**The idea is simple:** put your project rules in a format every tool understands. No more duplicating instructions across `.cursorrules`, `CLAUDE.md`, `.github/copilot-instructions.md`, and `codex.md`.
+**The idea is simple:** put your project rules in a format every tool understands. No more duplicating instructions across `.cursorrules`, `GEMINI.md`, `.github/copilot-instructions.md`, and `codex.md`.
 
 ---
 
-## 🆚 CLAUDE.md vs AGENTS.md
+## 🆚 GEMINI.md vs AGENTS.md
 
 They're **complementary, not competing.**
 
-| Feature | CLAUDE.md | AGENTS.md |
+| Feature | GEMINI.md | AGENTS.md |
 |---------|-----------|-----------|
-| **Scope** | Claude Code only | Any AI tool |
+| **Scope** | Gemini CLI only | Any AI tool |
 | **@imports** | ✅ Split into files | ❌ Single file |
-| **Custom slash commands** | ✅ `/commands/` dir | ❌ Not supported |
+| **Custom agents** | ✅ `/agents/` dir | ❌ Not supported |
 | **Hooks (pre/post)** | ✅ Full hook system | ❌ Not supported |
 | **MCP server config** | ✅ Via settings | ❌ Not supported |
 | **Nested overrides** | ✅ Per-directory | ✅ Per-directory |
-| **Tool adoption** | Claude Code | 60K+ repos, multi-tool |
-| **Spec governance** | Anthropic | Linux Foundation |
+| **Tool adoption** | Gemini CLI | 60K+ repos, multi-tool |
+| **Spec governance** | Google / Google DeepMind | Linux Foundation |
 
 ### When to use which?
 
 ```mermaid
 flowchart TD
-    Q{Does your team use<br/>only Claude Code?}
-    Q -->|Yes| A[CLAUDE.md is enough]
+    Q{Does your team use<br/>only Gemini CLI?}
+    Q -->|Yes| A[GEMINI.md is enough]
     Q -->|No| B{Multiple AI tools?}
-    B -->|Yes| C[AGENTS.md for shared rules<br/>+ CLAUDE.md for Claude features]
+    B -->|Yes| C[AGENTS.md for shared rules<br/>+ GEMINI.md for Gemini features]
     B -->|Just exploring| D[Start with AGENTS.md<br/>for portability]
 
     style A fill:#d1fae5
@@ -64,14 +64,14 @@ flowchart TD
 
 ## 🤝 Using Both Together
 
-The power move: **AGENTS.md for universal rules, CLAUDE.md for Claude-specific features.**
+The power move: **AGENTS.md for universal rules, GEMINI.md for Gemini-specific features.**
 
 ```
 TaskPulse/
 ├── AGENTS.md         # Rules every AI tool reads
-├── CLAUDE.md         # Claude-specific: hooks, imports, slash commands
-├── .claude/
-│   ├── commands/     # Claude slash commands (Part 2)
+├── GEMINI.md         # Gemini-specific: hooks, imports, custom agents
+├── .gemini/
+│   ├── agents/       # Gemini custom agents (Part 2)
 │   └── settings.json # MCP servers, permissions
 ```
 
@@ -82,26 +82,26 @@ TaskPulse/
 - Testing patterns
 - File structure expectations
 
-**CLAUDE.md** adds:
+**GEMINI.md** adds:
 - `@imports` for modular config
 - Hook triggers (lint on save, test on commit)
-- Slash command definitions
+- Custom agent definitions
 - MCP server connections
-- Claude-specific behavioral tuning
+- Gemini-specific behavioral tuning
 
 ### How they merge
 
-When Claude Code sees both files, it reads **AGENTS.md first, then CLAUDE.md.** CLAUDE.md rules take priority on conflicts. Think of it as:
+When Gemini CLI sees both files, it reads **AGENTS.md first, then GEMINI.md.** GEMINI.md rules take priority on conflicts. Think of it as:
 
 ```
-Final context = AGENTS.md (base) + CLAUDE.md (override)
+Final context = AGENTS.md (base) + GEMINI.md (override)
 ```
 
 ---
 
 ## 📱 Mobile Example — Cross-Platform Team
 
-Here's a real scenario: your team has iOS devs using Claude, Android devs using Cursor, and a shared KMM module.
+Here's a real scenario: your team has iOS devs using Gemini CLI, Android devs using Cursor, and a shared KMM module.
 
 **AGENTS.md covers the shared ground:**
 
@@ -134,11 +134,11 @@ Here's a real scenario: your team has iOS devs using Claude, Android devs using 
 
 Then each platform adds its own tool-specific config:
 
-**iOS team's CLAUDE.md:**
+**iOS team's GEMINI.md:**
 ```markdown
-# TaskPulse iOS — Claude Config
-@.claude/swift-style.md
-@.claude/testing-ios.md
+# TaskPulse iOS — Gemini Config
+@.gemini/swift-style.md
+@.gemini/testing-ios.md
 
 ## Hooks
 - Pre-commit: swiftlint --strict

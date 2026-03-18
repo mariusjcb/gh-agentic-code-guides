@@ -17,7 +17,7 @@ New team. New repo. 200K lines of code you've never seen. Your first instinct is
 
 ## 📋 Prerequisites
 
-- [ ] Claude Code installed and configured
+- [ ] Gemini CLI installed and configured
 - [ ] Git repo cloned locally
 - [ ] Basic understanding of the platform (iOS or Android)
 - [ ] 30–60 minutes for initial exploration
@@ -26,12 +26,12 @@ New team. New repo. 200K lines of code you've never seen. Your first instinct is
 
 ## 🔄 Step-by-Step Workflow
 
-### Step 1: Bootstrap CLAUDE.md
+### Step 1: Bootstrap GEMINI.md
 
 Your first action in any new codebase. **Always.**
 
 ```
-"Explore this codebase and create a CLAUDE.md file. Include:
+"Explore this codebase and create a GEMINI.md file. Include:
 - Project purpose and architecture pattern
 - Key directories and what they contain
 - Build commands (build, test, lint)
@@ -40,7 +40,7 @@ Your first action in any new codebase. **Always.**
 - Navigation/routing pattern"
 ```
 
-Claude scans the project structure, reads key files (`Package.swift`, `build.gradle`, `Info.plist`), and produces a comprehensive context file.
+Gemini scans the project structure, reads key files (`Package.swift`, `build.gradle`, `Info.plist`), and produces a comprehensive context file.
 
 ### Step 2: Map the Architecture
 
@@ -194,15 +194,15 @@ Create a dependency graph as a Mermaid diagram."
 |---------|-----|
 | 🚫 Reading every file top-to-bottom | Let AI map structure first, then dive into specifics |
 | 🚫 Making big changes on day 1 | Start with tiny changes to validate understanding |
-| 🚫 Ignoring existing patterns | Ask Claude to show patterns *before* writing new code |
-| 🚫 Skipping CLAUDE.md creation | Always create it first — it pays for itself in session 2 |
+| 🚫 Ignoring existing patterns | Ask Gemini to show patterns *before* writing new code |
+| 🚫 Skipping GEMINI.md creation | Always create it first — it pays for itself in session 2 |
 | 🚫 Assuming one architecture | Many real apps are hybrid (some UIKit, some SwiftUI) |
 
 ---
 
 ## ✅ Checklist
 
-- [ ] CLAUDE.md created with build commands and conventions
+- [ ] GEMINI.md created with build commands and conventions
 - [ ] Architecture diagram generated
 - [ ] Key patterns identified (at least 3)
 - [ ] Data flow traced for one feature end-to-end
@@ -217,8 +217,8 @@ Create a dependency graph as a Mermaid diagram."
 1. **Clone a popular open-source app** you've never worked with:
    - iOS: [Ice Cubes](https://github.com/Dimillian/IceCubesApp) (Mastodon client, SwiftUI)
    - Android: [Now in Android](https://github.com/android/nowinandroid) (Compose)
-2. **Run the bootstrap prompt** from Step 1 to generate CLAUDE.md
-3. **Ask Claude to map the architecture** as a Mermaid diagram
+2. **Run the bootstrap prompt** from Step 1 to generate GEMINI.md
+3. **Ask Gemini to map the architecture** as a Mermaid diagram
 4. **Trace one data flow** end-to-end (e.g., "How does a post/task get displayed?")
 5. **Make one tiny change** (e.g., add a label, change a color) following existing patterns
 

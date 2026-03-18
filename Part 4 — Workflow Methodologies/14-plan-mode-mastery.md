@@ -8,20 +8,20 @@ Your AI just rewrote half your codebase because you said "refactor this." Plan M
 
 ## 🎯 What is Plan Mode?
 
-Plan Mode tells Claude to **plan without executing**. No files changed. No code written. Just a structured plan you can review, refine, and approve.
+Plan Mode tells Gemini to **plan without executing**. No files changed. No code written. Just a structured plan you can review, refine, and approve.
 
 ```
-⌨️ Shift+Tab → Toggle Plan Mode ON
+⌨️ /plan or Shift+Tab → Toggle Plan Mode ON
 💬 Describe what you want
-📋 Claude produces a plan (no code changes)
+📋 Gemini produces a plan (no code changes)
 ✏️ You refine the plan
-✅ You approve → Claude executes
+✅ You approve → Gemini executes
 ```
 
 | Mode | What Happens |
 |------|-------------|
-| **Normal Mode** | Claude reads, thinks, and writes code immediately |
-| **Plan Mode** | Claude reads, thinks, and produces a *plan only* |
+| **Normal Mode** | Gemini reads, thinks, and writes code immediately |
+| **Plan Mode** | Gemini reads, thinks, and produces a *plan only* |
 
 > 💡 Think of it as **code review before the code exists**.
 
@@ -49,7 +49,7 @@ Don't write any code yet — just outline the approach, files to
 change, and potential risks."
 ```
 
-Claude responds with a structured plan. You say:
+Gemini responds with a structured plan. You say:
 
 ```
 "Good plan. Two changes:
@@ -58,7 +58,7 @@ Claude responds with a structured plan. You say:
 Update the plan."
 ```
 
-Claude updates. You approve. **Now** it writes code.
+Gemini updates. You approve. **Now** it writes code.
 
 ---
 
@@ -182,7 +182,7 @@ Now every future session can reference `@docs/plans/push-notifications-plan.md`.
 ## Status: 🟡 In Progress
 
 ## Approach
-[The plan Claude generated]
+[The plan Gemini generated]
 
 ## Files to Change
 - [ ] TaskPulseApp.swift — register for notifications
@@ -202,7 +202,7 @@ Now every future session can reference `@docs/plans/push-notifications-plan.md`.
 
 ---
 
-## 🤝 Plan + Agent Teams
+## 🤝 Plan + Multi-Agent Coordination
 
 Use Plan Mode to **design**, then subagents to **execute in parallel**.
 
@@ -268,7 +268,7 @@ Constraints:
 Give me: phases, file changes, risks, and testing plan."
 ```
 
-### Claude's Plan (Summarized)
+### Gemini's Plan (Summarized)
 
 ```markdown
 ## Phase 1: Infrastructure (2 tickets)
@@ -305,7 +305,7 @@ Update the plan and save to docs/plans/push-notifications.md"
 
 ## 🧪 Try It Now
 
-1. **Enable Plan Mode** (Shift+Tab in Claude Code)
+1. **Enable Plan Mode** (`/plan` or Shift+Tab in Gemini CLI)
 2. **Pick a feature** you're about to build in your current project
 3. **Write a plan prompt** using the checklist above
 4. **Iterate 2–3 times** — refine the plan with corrections
