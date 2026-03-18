@@ -2,7 +2,7 @@
 
 > **Time to read:** ~5 min | **Skill level:** Intermediate | **Platform:** iOS & Android
 
-Context-switching kills flow. Reading a Jira ticket in the browser, then switching to your IDE, then explaining requirements to Claude — that's three hops too many. **Bring Jira into your AI workflow.**
+Context-switching kills flow. Reading a Jira ticket in the browser, then switching to your IDE, then explaining requirements to Gemini — that's three hops too many. **Bring Jira into your AI workflow.**
 
 ---
 
@@ -163,7 +163,7 @@ Create Jira tickets for each requirement in RFC-001:
 - Include acceptance criteria from the RFC"
 ```
 
-Claude creates structured tickets with proper fields — no manual entry.
+Gemini creates structured tickets with proper fields — no manual entry.
 
 ---
 
@@ -194,7 +194,7 @@ For group 1, suggest implementation order based on dependencies."
 
 ## ⚙️ Config Example
 
-Full `.claude/settings.json` with Jira MCP:
+Full `.gemini/settings.json` with Jira MCP:
 
 ```json
 {
@@ -230,7 +230,7 @@ Full `.claude/settings.json` with Jira MCP:
 ```
 You: "Read Jira ticket TP-42"
 
-Claude: "TP-42: Implement conflict resolution for offline sync
+Gemini: "TP-42: Implement conflict resolution for offline sync
          Status: To Do | Sprint 14 | Points: 5
 
          Acceptance Criteria:
@@ -245,15 +245,15 @@ Claude: "TP-42: Implement conflict resolution for offline sync
 
 You: "Plan the implementation based on this ticket and @docs/RFC-002.md"
 
-Claude: [Produces plan — 3 files to create, 2 to modify]
+Gemini: [Produces plan — 3 files to create, 2 to modify]
 
 You: "Looks good. Implement it."
 
-Claude: [Creates ConflictResolver.swift, writes tests, runs them]
+Gemini: [Creates ConflictResolver.swift, writes tests, runs them]
 
 You: "Create PR and update the ticket"
 
-Claude: [Creates PR 'TP-42: Last-write-wins conflict resolution',
+Gemini: [Creates PR 'TP-42: Last-write-wins conflict resolution',
          moves ticket to In Review, adds PR link as comment]
 ```
 
@@ -266,19 +266,19 @@ Claude: [Creates PR 'TP-42: Last-write-wins conflict resolution',
 | Pitfall | Fix |
 |---------|-----|
 | 🚫 Hardcoded API tokens in settings | Use `${ENV_VAR}` references |
-| 🚫 Giving Claude write access to all projects | Scope permissions to your project only |
-| 🚫 Forgetting to link PRs to tickets | Add to your CLAUDE.md: "Always link PRs to Jira tickets" |
-| 🚫 Stale ticket data | Claude reads live — but verify status before updating |
+| 🚫 Giving Gemini write access to all projects | Scope permissions to your project only |
+| 🚫 Forgetting to link PRs to tickets | Add to your GEMINI.md: "Always link PRs to Jira tickets" |
+| 🚫 Stale ticket data | Gemini reads live — but verify status before updating |
 
 ---
 
 ## 🧪 Try It Now
 
 1. **Set up Jira MCP** using one of the three options above
-2. **Read a ticket** — ask Claude to summarize any ticket from your current sprint
+2. **Read a ticket** — ask Gemini to summarize any ticket from your current sprint
 3. **Plan from ticket** — use Plan Mode to design the implementation
 4. **Implement + PR** — build the feature and create a linked PR
-5. **Update ticket** — have Claude move the ticket and add a comment
+5. **Update ticket** — have Gemini move the ticket and add a comment
 
 > 🏆 **Success:** You complete a ticket without opening Jira in your browser once.
 

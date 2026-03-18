@@ -334,7 +334,7 @@ Files needed:
 - CommentService.swift — Protocol + default implementation
 - CommentListCoordinator.swift — Navigation handling
 
-Follow all conventions from CLAUDE.md. Reference TaskList for patterns.
+Follow all conventions from GEMINI.md. Reference TaskList for patterns.
 Each file max 150 lines. Include tests for ViewModel.
 ```
 
@@ -383,7 +383,7 @@ Few-shot works because AI matches patterns better than it follows abstract rules
 
 **When to use few-shot:**
 - 🎯 Complex patterns with multiple conventions
-- 🎯 When CLAUDE.md rules aren't producing the right output
+- 🎯 When GEMINI.md rules aren't producing the right output
 - 🎯 New team members need consistent code from day one
 
 ---
@@ -402,7 +402,7 @@ flowchart TD
     style C fill:#d1fae5
 ```
 
-**Why this order?** Claude caches static content at the start of the conversation. If your architecture rules and reference code come first, they get cached and you pay for them only once across multiple prompts.
+**Why this order?** Gemini caches static content at the start of the conversation. If your architecture rules and reference code come first, they get cached and you pay for them only once across multiple prompts.
 
 | Position | Content Type | Caching |
 |----------|-------------|---------|
@@ -410,7 +410,7 @@ flowchart TD
 | Middle | Reference code, examples | ✅ Partially cached |
 | Last | Your specific request | ❌ Changes every time |
 
-**Practical tip:** Put your CLAUDE.md (static) and code references (semi-static) before your specific ask (variable). This is already how CLAUDE.md works — it loads before your prompt.
+**Practical tip:** Put your GEMINI.md (static) and code references (semi-static) before your specific ask (variable). This is already how GEMINI.md works — it loads before your prompt.
 
 ---
 
