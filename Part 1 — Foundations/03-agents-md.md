@@ -220,9 +220,9 @@ Starting fresh? Use this:
 
 | Situation | Use |
 |-----------|-----|
-| Solo dev, Claude Code only | `CLAUDE.md` |
-| Team, all Claude Code | `CLAUDE.md` |
-| Team, mixed AI tools | `AGENTS.md` + `CLAUDE.md` |
+| Solo dev, Gemini CLI only | `GEMINI.md` |
+| Team, all Gemini CLI | `GEMINI.md` |
+| Team, mixed AI tools | `AGENTS.md` + `GEMINI.md` |
 | Open-source project | `AGENTS.md` (widest compatibility) |
 | Enterprise, multi-team | `AGENTS.md` (base) + tool-specific overrides |
 
@@ -237,7 +237,7 @@ Starting fresh? Use this:
    - [ ] 5 code conventions
    - [ ] Build/test commands
 
-2. **Compare coverage.** If you already have a CLAUDE.md, identify which rules are universal (move to AGENTS.md) vs Claude-specific (keep in CLAUDE.md).
+2. **Compare coverage.** If you already have a GEMINI.md, identify which rules are universal (move to AGENTS.md) vs Gemini-specific (keep in GEMINI.md).
 
 3. **Test portability.** Copy your AGENTS.md into a Cursor project or Copilot workspace. Does the AI follow your rules? Note any gaps.
 
@@ -245,4 +245,4 @@ Starting fresh? Use this:
 
 ---
 
-← [Previous: CLAUDE.md Basics](02-claude-md-basics.md) | [🗺️ Course Map](../00-course-map.md) | [Next: Smart Prompting →](04-smart-prompting.md)
+← [Previous: GEMINI.md Basics](02-gemini-md-basics.md) | [🗺️ Course Map](../00-course-map.md) | [Next: Smart Prompting →](04-smart-prompting.md)

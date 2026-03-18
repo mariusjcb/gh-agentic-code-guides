@@ -10,7 +10,7 @@ Context-switching kills flow. Reading a Jira ticket in the browser, then switchi
 
 ```mermaid
 flowchart LR
-    J["🎫 Jira Ticket"] <-->|MCP| C["🤖 Claude"]
+    J["🎫 Jira Ticket"] <-->|MCP| C["🤖 Gemini"]
     C <-->|"Read/Write"| G["💻 Code"]
     C <-->|"gh CLI"| PR["🔀 GitHub PR"]
     PR -->|"Link"| J
@@ -22,10 +22,10 @@ flowchart LR
 ```
 
 **The closed loop:**
-1. 📖 Claude reads the Jira ticket (requirements, acceptance criteria, comments)
-2. 💻 Claude implements the feature
-3. 🔀 Claude creates a PR linked to the ticket
-4. ✅ Claude updates the ticket status to "In Review"
+1. 📖 Gemini reads the Jira ticket (requirements, acceptance criteria, comments)
+2. 💻 Gemini implements the feature
+3. 🔀 Gemini creates a PR linked to the ticket
+4. ✅ Gemini updates the ticket status to "In Review"
 
 **Zero tab-switching. Zero copy-pasting requirements.**
 
