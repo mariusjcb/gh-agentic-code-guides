@@ -378,4 +378,4 @@ Multi-agent coordination is **token-hungry.** Every specialist has their own con
 
 ---
 
-← [Previous: Headless Gemini](08-headless-claude.md) | [🗺️ Course Map](../00-course-map.md) | [Next: MCP Servers →](10-mcp-servers.md)
+← [Previous: Subagents](../Part 2 — Power Tools/08-subagents.md) | [🗺️ Course Map](../00-course-map.md) | [Next: MCP Servers →](10-mcp-servers.md)

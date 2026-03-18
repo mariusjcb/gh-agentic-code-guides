@@ -70,7 +70,7 @@
 - [Gemini CLI Hooks Mastery](https://github.com/disler/gemini-cli-hooks-mastery) — GitHub repo with examples
 
 ### 🐝 Multi-agent & Swarms
-- [Gemini CLI Multi-agent: Complete Guide](https://claudefa.st/blog/guide/agents/multi-agent) — Detailed walkthrough
+- [Gemini CLI Multi-agent: Complete Guide](https://medium.com/google-cloud/advanced-gemini-cli-part-3-isolated-agents-b9dbab70eeff) — Detailed walkthrough
 - [From Tasks to Swarms](https://alexop.dev/posts/from-tasks-to-swarms-multi-agent-in-gemini-cli/) — Evolution of agent work
 - [Gemini CLI Swarms](https://addyosmani.com/blog/gemini-cli-multi-agent/) — Addy Osmani's overview
 
