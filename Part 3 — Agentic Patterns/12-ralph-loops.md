@@ -3,7 +3,7 @@
 > **"I'm in danger!" → "I'm helping!"**
 > — Ralph Wiggum, The Simpsons
 
-What if you could give Claude a feature, walk away for lunch, and come back to a working implementation with passing tests?
+What if you could give Gemini a feature, walk away for lunch, and come back to a working implementation with passing tests?
 
 That's a Ralph Loop.
 
@@ -11,7 +11,7 @@ That's a Ralph Loop.
 
 ## 🎯 What's a Ralph Loop?
 
-A **Ralph Loop** is an autonomous improvement cycle where Claude Code runs repeatedly, reviewing and fixing its own output until the job is done.
+A **Ralph Loop** is an autonomous improvement cycle where Gemini CLI runs repeatedly, reviewing and fixing its own output until the job is done.
 
 Named after Ralph Wiggum — starts confused, keeps trying, eventually gets there.
 
@@ -22,7 +22,7 @@ Iteration 3: "My cat's breath..."   → fixes test failures
 Iteration 4: "I'm helping!"        → all tests pass, feature complete
 ```
 
-The key insight: each iteration, Claude sees its **own previous work** as existing code. It notices issues, fixes them, and improves — like a developer doing multiple review passes.
+The key insight: each iteration, Gemini sees its **own previous work** as existing code. It notices issues, fixes them, and improves — like a developer doing multiple review passes.
 
 ---
 
@@ -38,7 +38,7 @@ Ralph Loop workflow:
 You prompt → AI generates → AI reviews → AI fixes → AI re-checks → Done
 ```
 
-You go from **co-pilot** to **air traffic controller.** You set the destination, Claude handles the flight.
+You go from **co-pilot** to **air traffic controller.** You set the destination, Gemini handles the flight.
 
 ---
 
@@ -46,13 +46,13 @@ You go from **co-pilot** to **air traffic controller.** You set the destination,
 
 ```mermaid
 flowchart TB
-    START["🚀 Start Ralph Loop"] --> RUN["🤖 Run Claude Code\nwith feature prompt"]
-    RUN --> CHECK["📋 Stop Hook\nchecks PROGRESS.md"]
-    CHECK -->|"Not done"| LOOP["🔄 Re-run Claude\n(sees previous work)"]
+    START["🚀 Start Ralph Loop"] --> RUN["🤖 Run Gemini CLI\nwith feature prompt"]
+    RUN --> CHECK["📋 session-end Hook\nchecks PROGRESS.md"]
+    CHECK -->|"Not done"| LOOP["🔄 Re-run Gemini\n(sees previous work)"]
     LOOP --> RUN
     CHECK -->|"DONE found"| EXIT["✅ Feature Complete!\nAll tests passing"]
 
-    RUN -.->|"Each iteration\nClaude sees its\nown previous code"| RUN
+    RUN -.->|"Each iteration\nGemini sees its\nown previous code"| RUN
 
     style START fill:#fef3c7,stroke:#f59e0b
     style RUN fill:#dbeafe,stroke:#3b82f6
@@ -63,9 +63,9 @@ flowchart TB
 
 **Step by step:**
 
-1. **Create a bash `while` loop** that runs Claude Code with your prompt
-2. **Configure a `Stop` hook** that checks completion criteria
-3. **If not done** → the loop re-runs Claude → it sees its previous work as existing code → continues
+1. **Create a bash `while` loop** that runs Gemini CLI with your prompt
+2. **Configure a `session-end` hook** in `.gemini/settings.json` that checks completion criteria
+3. **If not done** → the loop re-runs Gemini → it sees its previous work as existing code → continues
 4. **If done** → the hook exits the loop
 
 ---
@@ -91,7 +91,7 @@ while [ $ITERATION -lt $MAX_ITERATIONS ]; do
     ITERATION=$((ITERATION + 1))
     echo "🔄 Iteration $ITERATION of $MAX_ITERATIONS"
 
-    claude --print \
+    gemini --headless \
       "Continue implementing the TaskPulse comments feature.
 
        Check PROGRESS.md for current status and what's been done.
@@ -119,6 +119,22 @@ echo "⚠️ Hit max iterations ($MAX_ITERATIONS). Check PROGRESS.md for status.
 exit 1
 ```
 
+### The session-end Hook (`.gemini/settings.json`)
+
+You can optionally configure a `session-end` hook to run checks after each Gemini session completes:
+
+```json
+{
+  "hooks": {
+    "session-end": [
+      {
+        "command": "bash -c 'if grep -q \"STATUS: DONE\" PROGRESS.md 2>/dev/null; then echo COMPLETE; fi'"
+      }
+    ]
+  }
+}
+```
+
 ### Make it executable and run:
 
 ```bash
@@ -130,7 +146,7 @@ chmod +x ralph.sh
 
 ## 🧠 Self-Referential Development
 
-This is where Ralph Loops get interesting. Each iteration, Claude:
+This is where Ralph Loops get interesting. Each iteration, Gemini:
 
 1. **Reads the codebase** — sees files it wrote in previous iterations
 2. **Runs tests** — discovers failures from its own code
@@ -166,7 +182,7 @@ flowchart LR
 ### The Prompt
 
 ```bash
-claude --print \
+gemini --headless \
   "Implement the Task Comments feature for TaskPulse iOS.
 
    Requirements:
@@ -238,7 +254,7 @@ Ralph Loops are powerful but can go sideways. **Always set these guardrails:**
 | Guardrail | Why | How |
 |-----------|-----|-----|
 | 🔢 **Max iterations** | Prevent infinite loops | `MAX_ITERATIONS=10` in script |
-| 💰 **Token budget** | Prevent runaway costs | Set `--max-tokens` flag |
+| 💰 **Token budget** | Prevent runaway costs | Set token limits in Gemini CLI config |
 | 📁 **Scope boundaries** | Prevent unrelated changes | "ONLY modify files in Features/Comments/" |
 | 📋 **Progress tracking** | See what happened while you were away | `PROGRESS.md` updated each iteration |
 | ⏱️ **Time limit** | Hard stop for long-running loops | `timeout 30m ./ralph.sh` |
@@ -254,7 +270,7 @@ The ultimate workflow:
 
 ```mermaid
 flowchart LR
-    P["📋 Plan Mode\n(Human reviews)"] --> A["✅ Approve Plan"]
+    P["📋 /plan Mode\n(Human reviews)"] --> A["✅ Approve Plan"]
     A --> R["🔄 Ralph Loop\n(Autonomous)"]
     R --> D["✅ Done\n(Tests passing)"]
 
@@ -266,7 +282,7 @@ flowchart LR
 
 **Step 1: Plan with human oversight**
 ```bash
-claude --print "Plan the implementation of TaskPulse Task Comments feature.
+gemini --headless "Plan the implementation of TaskPulse Task Comments feature.
 List every file you'll create/modify, the tests you'll write,
 and the order of implementation. Save the plan to PLAN.md."
 ```
@@ -279,27 +295,28 @@ and the order of implementation. Save the plan to PLAN.md."
 **Step 3: Ralph Loop executes the plan**
 ```bash
 # ralph.sh with:
-claude --print "Execute the plan in PLAN.md. Follow it exactly.
+gemini --headless "Execute the plan in PLAN.md. Follow it exactly.
 Track progress in PROGRESS.md. Run tests after each step."
 ```
 
-You stay in control of **what** gets built. Claude handles **how** it gets built.
+You stay in control of **what** gets built. Gemini handles **how** it gets built.
 
 ---
 
-## 🚀 Advanced: Ralph Loop + Agent Teams
+## 🚀 Advanced: Ralph Loop + Multi-Agent Coordination
 
-The final form: a Ralph Loop that orchestrates an Agent Team.
+The final form: a Ralph Loop that orchestrates multi-agent coordination via shell tool delegation.
 
 ```
 Ralph Loop iteration 1:
-  → Team Lead assigns tasks to 3 teammates
-  → Teammates work in parallel
+  → Strategist defines protocol interfaces
+  → Spawns 3 specialists via shell tool
+  → Specialists work in parallel
 
 Ralph Loop iteration 2:
-  → Team Lead reviews integration
-  → Finds conflicts, reassigns fixes
-  → Teammates fix issues
+  → Strategist reviews integration
+  → Finds conflicts, spawns fix specialists
+  → Specialists fix issues
 
 Ralph Loop iteration 3:
   → All tests pass
@@ -322,7 +339,7 @@ echo "STATUS: IN_PROGRESS" > "$PROG"
 while [ $I -lt $MAX ]; do
   I=$((I + 1))
   echo "🔄 Iteration $I"
-  claude --print "YOUR PROMPT HERE. Check $PROG. Write 'STATUS: DONE' when complete."
+  gemini --headless "YOUR PROMPT HERE. Check $PROG. Write 'STATUS: DONE' when complete."
   grep -q "STATUS: DONE" "$PROG" && echo "✅ Done in $I iterations!" && exit 0
 done
 echo "⚠️ Max iterations reached" && exit 1
@@ -345,7 +362,7 @@ echo "⚠️ Max iterations reached" && exit 1
    - Exit when all tests pass
 
 3. **Add Plan Mode.** Before your Ralph Loop:
-   - Run Claude in plan mode
+   - Run Gemini with `/plan`
    - Review the plan
    - Then let the Ralph Loop execute it
 
@@ -355,7 +372,7 @@ echo "⚠️ Max iterations reached" && exit 1
    - [ ] PROGRESS.md tracking
    - [ ] Token/time budget
 
-5. **Monitor your first run.** Watch the iterations happen in real-time. Note how Claude improves its own work across iterations. This builds trust for future walk-away runs.
+5. **Monitor your first run.** Watch the iterations happen in real-time. Note how Gemini improves its own work across iterations. This builds trust for future walk-away runs.
 
 ---
 
