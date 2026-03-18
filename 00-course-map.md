@@ -9,19 +9,19 @@
 ```mermaid
 graph LR
     subgraph P1["💥 Part 1 — Foundations"]
-        A1[01 Why AI Fails] --> A2[02 CLAUDE.md]
+        A1[01 Why AI Fails] --> A2[02 GEMINI.md]
         A2 --> A3[03 AGENTS.md]
         A3 --> A4[04 Smart Prompting]
     end
 
     subgraph P2["⚡ Part 2 — Power Tools"]
-        B1[05 Skills] --> B2[06 Commands]
+        B1[05 Custom Agents] --> B2[06 Commands]
         B2 --> B3[07 Hooks]
         B3 --> B4[08 Subagents]
     end
 
     subgraph P3["🐝 Part 3 — Agentic"]
-        C1[09 Agent Teams] --> C2[10 MCP Servers]
+        C1[09 Multi-Agent] --> C2[10 MCP Servers]
         C2 --> C3[11 Custom MCP]
         C3 --> C4[12 Ralph Loops]
     end
@@ -47,9 +47,9 @@ graph LR
 
 | Part | Duration | Focus | You'll Build |
 |------|----------|-------|-------------|
-| 💥 **1. Foundations** | ~15 min | Memory + Prompting | CLAUDE.md for TaskPulse |
-| ⚡ **2. Power Tools** | ~12 min | Automation | Skills, Commands, Hooks |
-| 🐝 **3. Agentic** | ~12 min | Parallelism | Agent Teams, MCP, Loops |
+| 💥 **1. Foundations** | ~15 min | Memory + Prompting | GEMINI.md for TaskPulse |
+| ⚡ **2. Power Tools** | ~12 min | Automation | Custom Agents, Commands, Hooks |
+| 🐝 **3. Agentic** | ~12 min | Parallelism | Multi-Agent, MCP, Loops |
 | 📋 **4. Workflows** | ~10 min | Process | PRD → Code Pipeline |
 | 🎯 **5. Scenarios** | ~15 min | Daily Work | 10 Playbooks |
 
@@ -61,14 +61,14 @@ graph LR
 → [01 Why AI Fails](Part%201%20—%20Foundations/01-why-ai-fails.md) — Understand the root cause
 
 ### 🗓️ Day 2 — "Let me give it some context"
-→ [02 CLAUDE.md](Part%201%20—%20Foundations/02-claude-md-basics.md) — Create project memory
+→ [02 GEMINI.md](Part%201%20—%20Foundations/02-gemini-md-basics.md) — Create project memory
 → [03 AGENTS.md](Part%201%20—%20Foundations/03-agents-md.md) — Universal config
 
 ### 🗓️ Day 3 — "My prompts are getting better"
 → [04 Smart Prompting](Part%201%20—%20Foundations/04-smart-prompting.md) — CRAC framework
 
 ### 🗓️ Week 1 — "I keep repeating myself"
-→ [05 Skills](Part%202%20—%20Power%20Tools/05-skills.md) — Auto-triggering patterns
+→ [05 Custom Agents](Part%202%20—%20Power%20Tools/05-skills.md) — Auto-triggering patterns
 → [06 Commands](Part%202%20—%20Power%20Tools/06-commands.md) — Custom workflows
 
 ### 🗓️ Week 2 — "I need guardrails"
@@ -76,7 +76,7 @@ graph LR
 → [08 Subagents](Part%202%20—%20Power%20Tools/08-subagents.md) — Parallel workers
 
 ### 🗓️ Week 3 — "I want AI to do more independently"
-→ [09 Agent Teams](Part%203%20—%20Agentic%20Patterns/09-agent-teams.md) — Multi-agent swarms
+→ [09 Multi-Agent Delegation](Part%203%20—%20Agentic%20Patterns/09-agent-teams.md) — Multi-agent via shell tool delegation
 → [10 MCP Servers](Part%203%20—%20Agentic%20Patterns/10-mcp-servers.md) — External tools
 → [11 Custom MCP](Part%203%20—%20Agentic%20Patterns/11-custom-mcp.md) — Your own servers
 
@@ -96,9 +96,9 @@ graph LR
 ```mermaid
 graph TD
     L1["🔴 Level 1: Copy-Paste Prompting<br/>You type everything, AI forgets everything"]
-    L2["🟠 Level 2: Context-Aware<br/>CLAUDE.md gives AI memory"]
-    L3["🟡 Level 3: Tool-Augmented<br/>Skills + Hooks reduce errors"]
-    L4["🟢 Level 4: Agentic<br/>Teams + MCP work in parallel"]
+    L2["🟠 Level 2: Context-Aware<br/>GEMINI.md gives AI memory"]
+    L3["🟡 Level 3: Tool-Augmented<br/>Custom Agents + Hooks reduce errors"]
+    L4["🟢 Level 4: Agentic<br/>Multi-Agent + MCP work in parallel"]
     L5["🔵 Level 5: Autonomous<br/>Ralph Loops + PRD pipeline = AI ships features"]
 
     L1 --> L2 --> L3 --> L4 --> L5
@@ -122,7 +122,7 @@ Not everyone needs to follow the exact order. Here are shortcut paths:
 01 → 02 → 04 → 07 (Hooks) → 19 (Bug Investigation) → 20 (Bug Fix)
 
 ### ✨ "I mainly build features"
-01 → 02 → 04 → 05 (Skills) → 09 (Agent Teams) → 12 (Ralph Loops) → 21 (New Feature)
+01 → 02 → 04 → 05 (Custom Agents) → 09 (Multi-Agent) → 12 (Ralph Loops) → 21 (New Feature)
 
 ### 📋 "I mainly plan & spec"
 01 → 02 → 04 → 13 (PRD Pipeline) → 14 (Plan Mode) → 15 (Jira) → 25 (Create PRD)

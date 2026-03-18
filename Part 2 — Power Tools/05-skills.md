@@ -1,62 +1,71 @@
-# ⚡ Creating Reusable Skills
+# ⚡ Creating Custom Agents
 
 > **Time to read:** ~5 min | **Skill level:** Intermediate | **Platform:** iOS & Android
 
-You've been explaining the same patterns to Claude over and over. Your team's SwiftUI component structure. Your Compose screen conventions. Your API layer patterns. **Stop repeating yourself.**
+You've been explaining the same patterns to Gemini over and over. Your team's SwiftUI component structure. Your Compose screen conventions. Your API layer patterns. **Stop repeating yourself.**
 
-Skills are reusable instruction sets that Claude loads *automatically* when they're relevant. Write once, benefit forever.
+Custom agents are reusable, specialized subagents that Gemini loads when you need domain-specific expertise. Write once, benefit forever.
 
 ---
 
-## 🎯 What's a Skill?
+## 🎯 What's a Custom Agent?
 
-A **Skill** is a markdown file with structured instructions that Claude auto-loads based on context.
+A **Custom Agent** is a markdown file with YAML frontmatter that defines a specialized subagent for Gemini CLI.
 
-| | Skills | Manual Instructions |
+| | Custom Agents | Manual Instructions |
 |---|---|---|
-| **Trigger** | 🤖 Automatic | 👤 You type it every time |
-| **Location** | `.claude/skills/` | Your brain / clipboard |
+| **Trigger** | 🤖 Invoked by Gemini when relevant | 👤 You type it every time |
+| **Location** | `.gemini/agents/` (project) or `~/.gemini/agents/` (user) | Your brain / clipboard |
 | **Consistency** | Always the same | Varies by your mood & memory |
 | **Team sharing** | Git-committed, everyone gets it | "Check the wiki maybe?" |
 
-**Think of skills as muscle memory for your AI pair programmer.**
+**Think of custom agents as specialist teammates your AI pair programmer can call on.**
 
 ---
 
 ## 📁 File Structure
 
 ```
-.claude/
-  skills/
-    swift-ui-component/
-      SKILL.md
-    compose-screen/
-      SKILL.md
-    api-integration/
-      SKILL.md
-    unit-test-writer/
-      SKILL.md
+.gemini/
+  agents/
+    swift-ui-component.md
+    compose-screen.md
+    api-integration.md
+    unit-test-writer.md
 ```
 
-Each skill lives in its own folder. The file **must** be named `SKILL.md`.
+Each custom agent is a `.md` file in `.gemini/agents/`. The filename identifies the agent.
+
+**Important:** Custom agents must be enabled in your `.gemini/settings.json`:
+
+```json
+{
+  "agents": {
+    "swift-ui-component": { "enabled": true },
+    "compose-screen": { "enabled": true },
+    "api-integration": { "enabled": true },
+    "unit-test-writer": { "enabled": true }
+  }
+}
+```
+
+You can also place agents in `~/.gemini/agents/` for user-level agents available across all your projects.
 
 ---
 
 ## 📝 YAML Frontmatter
 
-Every skill starts with a YAML frontmatter block between `---` delimiters:
+Every custom agent starts with a YAML frontmatter block between `---` delimiters:
 
 ```yaml
 ---
-description: "Short description of what this skill does"
-triggers:
-  - "keyword or phrase that activates this skill"
-  - "another trigger phrase"
+name: "Human-readable name"
+description: "Short description of what this agent specializes in"
 ---
 ```
 
-- **`description`** — Claude reads this to decide if the skill is relevant
-- **`triggers`** — Context clues that cause Claude to load the full instructions
+- **`name`** — Display name for the agent
+- **`description`** — Gemini reads this to understand the agent's specialty and decide when to delegate to it
 
 **Keep descriptions specific.** "Helps with code" = useless. "Generates SwiftUI views following TaskPulse design system with previews" = chef's kiss.
 
@@ -66,33 +75,29 @@ triggers:
 
 ```mermaid
 flowchart LR
-    A["👤 User Prompt"] --> B{"🤖 Claude checks\nskill descriptions"}
-    B -->|Match found| C["📖 Full instructions\nloaded"]
+    A["👤 User Prompt"] --> B{"🤖 Gemini checks\nagent descriptions"}
+    B -->|Match found| C["📖 Agent instructions\nloaded"]
     B -->|No match| D["Standard response"]
     C --> E["✨ Better, consistent\noutput"]
 ```
 
 1. You type a prompt like *"Create a new task detail screen"*
-2. Claude scans all skill descriptions and triggers
-3. `compose-screen` skill matches — instructions load automatically
-4. Claude follows your team's exact patterns. No reminding needed.
+2. Gemini evaluates which custom agent is best suited for the task
+3. `compose-screen` agent matches — its instructions are loaded
+4. Gemini follows your team's exact patterns. No reminding needed.
 
 ---
 
-## 📱 Mobile Skill Examples
+## 📱 Mobile Agent Examples
 
-### 1️⃣ `swift-ui-component` Skill
+### 1️⃣ `swift-ui-component` Agent
 
-**`.claude/skills/swift-ui-component/SKILL.md`**
+**`.gemini/agents/swift-ui-component.md`**
 
 ```markdown
 ---
+name: "SwiftUI Component Generator"
 description: "Generates SwiftUI view components following TaskPulse iOS design system with previews"
-triggers:
-  - "create a SwiftUI view"
-  - "new component"
-  - "build a screen in SwiftUI"
-  - "TaskPulse iOS UI"
 ---
 
 # SwiftUI Component Generator — TaskPulse
@@ -139,18 +144,14 @@ struct {Name}View: View {
 
 ---
 
-### 2️⃣ `compose-screen` Skill
+### 2️⃣ `compose-screen` Agent
 
-**`.claude/skills/compose-screen/SKILL.md`**
+**`.gemini/agents/compose-screen.md`**
 
 ```markdown
 ---
+name: "Compose Screen Generator"
 description: "Generates Jetpack Compose screens with ViewModel following TaskPulse Android patterns"
-triggers:
-  - "create a Compose screen"
-  - "new Android screen"
-  - "build a screen in Compose"
-  - "TaskPulse Android UI"
 ---
 
 # Compose Screen Generator — TaskPulse
@@ -210,18 +211,14 @@ private fun {Name}Preview() {
 
 ---
 
-### 3️⃣ `api-integration` Skill
+### 3️⃣ `api-integration` Agent
 
-**`.claude/skills/api-integration/SKILL.md`**
+**`.gemini/agents/api-integration.md`**
 
 ```markdown
 ---
+name: "API Integration Agent"
 description: "Creates network layer API calls following TaskPulse patterns for both iOS and Android"
-triggers:
-  - "add an API call"
-  - "create endpoint"
-  - "network request"
-  - "API integration"
 ---
 
 # API Integration — TaskPulse
@@ -266,18 +263,14 @@ interface TaskApi {
 
 ---
 
-### 4️⃣ `unit-test-writer` Skill
+### 4️⃣ `unit-test-writer` Agent
 
-**`.claude/skills/unit-test-writer/SKILL.md`**
+**`.gemini/agents/unit-test-writer.md`**
 
 ```markdown
 ---
+name: "Unit Test Writer"
 description: "Generates unit tests matching TaskPulse conventions for XCTest (iOS) and JUnit (Android)"
-triggers:
-  - "write tests"
-  - "add unit tests"
-  - "test this"
-  - "create test cases"
 ---
 
 # Unit Test Writer — TaskPulse
@@ -348,22 +341,22 @@ class TaskViewModelTest {
 
 ## 💡 The Rule of Three
 
-> **If you've explained something to your AI 3 times, make it a skill.**
+> **If you've explained something to your AI 3 times, make it a custom agent.**
 
-Signs you need a skill:
+Signs you need a custom agent:
 
 - 🔁 You keep pasting the same "remember to..." instructions
-- 😤 Claude forgets your team's patterns between sessions
+- 😤 Gemini forgets your team's patterns between sessions
 - 📋 You have a "prompt template" saved somewhere
-- 👥 New team members ask "how does Claude know our conventions?"
+- 👥 New team members ask "how does Gemini know our conventions?"
 
-**Turn tribal knowledge into committed skills.**
+**Turn tribal knowledge into committed custom agents.**
 
 ---
 
-## 🆚 Skills vs Manual Instructions
+## 🆚 Custom Agents vs Manual Instructions
 
-### Without skill:
+### Without custom agent:
 ```
 Create a new SwiftUI view for the task detail screen.
 Remember to use MVVM pattern.
@@ -374,24 +367,24 @@ Make sure the ViewModel uses @MainActor.
 Oh and add accessibility labels.
 ```
 
-### With `swift-ui-component` skill:
+### With `swift-ui-component` agent:
 ```
 Create a new SwiftUI view for the task detail screen.
 ```
 
-**Same output. 80% less typing.** Claude auto-loads everything it needs.
+**Same output. 80% less typing.** Gemini auto-loads everything it needs.
 
 ---
 
 ## 🧪 Try It Now
 
-1. **Create your first skill:** Pick your most-repeated instruction pattern. Create a `SKILL.md` with proper frontmatter.
+1. **Create your first custom agent:** Pick your most-repeated instruction pattern. Create a `.md` file in `.gemini/agents/` with proper YAML frontmatter.
 
-2. **Port a real pattern:** Take a component you recently built in TaskPulse. Write a skill that would generate it correctly from a one-line prompt.
+2. **Enable it in settings:** Add the agent to your `.gemini/settings.json` with `"enabled": true`.
 
-3. **Test the trigger:** Write 3 different prompts that *should* activate your skill. Do the triggers in your frontmatter cover them all?
+3. **Port a real pattern:** Take a component you recently built in TaskPulse. Write a custom agent that would generate it correctly from a one-line prompt.
 
-4. **Team challenge:** Ask a teammate to create a component using your skill. Did the output match team standards without any extra prompting?
+4. **Team challenge:** Ask a teammate to create a component using your custom agent. Did the output match team standards without any extra prompting?
 
 ---
 
