@@ -2,17 +2,17 @@
 
 > **Time to read:** ~5 min | **Skill level:** Intermediate | **Platform:** iOS & Android
 
-Skills are automatic. Commands are **on-demand power tools.** Type `/build-ios` and Claude runs your exact build pipeline. No remembering flags. No typos. No "wait, which simulator was it again?"
+Custom agents are specialized subagents. Commands are **on-demand power tools.** Type `/build-ios` and Gemini runs your exact build pipeline. No remembering flags. No typos. No "wait, which simulator was it again?"
 
 ---
 
 ## 🎯 What's a Command?
 
-A **command** is a user-triggered `/slash-command`. You invoke it explicitly by typing `/command-name` in your Claude session.
+A **command** is a user-triggered `/slash-command`. You invoke it explicitly by typing `/command-name` in your Gemini session. Commands are defined in `.toml` files and managed via the `/commands` interface.
 
 ```
 You:  /build-ios
-Claude: Running xcodebuild for TaskPulse... ✅ Build succeeded.
+Gemini: Running xcodebuild for TaskPulse... ✅ Build succeeded.
 ```
 
 Commands are perfect for **actions you repeat daily** but don't want happening automatically.
@@ -21,35 +21,53 @@ Commands are perfect for **actions you repeat daily** but don't want happening a
 
 ## 📁 File Structure
 
+Commands are defined in TOML configuration files within `.gemini/`:
+
 ```
-.claude/
+.gemini/
   commands/
-    build-ios.md
-    build-android.md
-    test-module.md
-    lint-check.md
-    review-pr.md
-    generate-mocks.md
+    build-ios.toml
+    build-android.toml
+    test-module.toml
+    lint-check.toml
+    review-pr.toml
+    generate-mocks.toml
 ```
 
-Each command = one `.md` file in `.claude/commands/`. The filename becomes the slash command name.
+Each command = one `.toml` file in `.gemini/commands/`. The filename becomes the slash command name.
 
-`build-ios.md` → `/build-ios`
+`build-ios.toml` → `/build-ios`
+
+### TOML Command Format
+
+Each `.toml` file defines the command with a description and prompt:
+
+```toml
+[command]
+description = "Short description shown in /commands list"
+prompt = """
+The full prompt/instructions that Gemini will follow
+when this command is invoked.
+"""
+```
+
+Use `/commands` in a Gemini session to list all available custom commands.
 
 ---
 
-## 🆚 Skills vs Commands
+## 🆚 Custom Agents vs Commands
 
-| | ⚡ Skills | 🔧 Commands |
+| | ⚡ Custom Agents | 🔧 Commands |
 |---|---|---|
 | **Trigger** | Automatic (context-based) | Manual (`/command-name`) |
-| **Location** | `.claude/skills/{name}/SKILL.md` | `.claude/commands/{name}.md` |
+| **Location** | `.gemini/agents/{name}.md` | `.gemini/commands/{name}.toml` |
+| **Format** | Markdown with YAML frontmatter | TOML with description + prompt |
 | **Best for** | Code generation patterns | Build/test/lint actions |
-| **Parameters** | None | `$ARGUMENTS` supported |
+| **Parameters** | None | Arguments appended to prompt |
 | **Think of it as** | "Always remember this" | "Do this when I say so" |
 
 **Rule of thumb:**
-- Generating code? → **Skill**
+- Generating code? → **Custom Agent**
 - Running a task? → **Command**
 
 ---
@@ -58,9 +76,12 @@ Each command = one `.md` file in `.claude/commands/`. The filename becomes the s
 
 ### 1️⃣ `/build-ios`
 
-**`.claude/commands/build-ios.md`**
+**`.gemini/commands/build-ios.toml`**
 
-```markdown
+```toml
+[command]
+description = "Build the TaskPulse iOS app for the simulator"
+prompt = """
 Build the TaskPulse iOS app for the simulator.
 
 Run this exact command:
@@ -82,15 +103,19 @@ If the build fails:
 4. Ask before applying changes
 
 Never change build settings without asking.
+"""
 ```
 
 ---
 
 ### 2️⃣ `/build-android`
 
-**`.claude/commands/build-android.md`**
+**`.gemini/commands/build-android.toml`**
 
-```markdown
+```toml
+[command]
+description = "Build the TaskPulse Android app"
+prompt = """
 Build the TaskPulse Android app.
 
 Run this exact command:
@@ -109,19 +134,25 @@ For release builds, use:
 ```bash
 ./gradlew :app:assembleRelease
 ```
+"""
 ```
 
 ---
 
 ### 3️⃣ `/test-module`
 
-**`.claude/commands/test-module.md`**
+**`.gemini/commands/test-module.toml`**
 
-```markdown
+```toml
+[command]
+description = "Run tests for a specific module"
+prompt = """
 Run tests for a specific module.
 
 ## Usage
 `/test-module TaskList` or `/test-module feature:chat`
+
+The user will provide the module name as an argument after the command.
 
 ## iOS
 ```bash
@@ -129,13 +160,13 @@ xcodebuild test \
   -workspace TaskPulse.xcworkspace \
   -scheme TaskPulse \
   -destination 'platform=iOS Simulator,name=iPhone 16,OS=latest' \
-  -only-testing:$ARGUMENTS \
+  -only-testing:{module_argument} \
   | xcpretty
 ```
 
 ## Android
 ```bash
-./gradlew :feature:$ARGUMENTS:testDebugUnitTest
+./gradlew :feature:{module_argument}:testDebugUnitTest
 ```
 
 ## After running:
@@ -143,15 +174,19 @@ xcodebuild test \
 - For failures: show test name, expected vs actual, file location
 - Suggest fixes for failing tests
 - Do NOT auto-fix tests without asking
+"""
 ```
 
 ---
 
 ### 4️⃣ `/lint-check`
 
-**`.claude/commands/lint-check.md`**
+**`.gemini/commands/lint-check.toml`**
 
-```markdown
+```toml
+[command]
+description = "Run all linters for TaskPulse"
+prompt = """
 Run all linters for TaskPulse.
 
 ## iOS — SwiftLint
@@ -175,15 +210,19 @@ Summarize results as:
 If there are auto-fixable issues, ask if I want to fix them:
 - iOS: `swiftlint lint --fix`
 - Android: `./gradlew detekt --auto-correct`
+"""
 ```
 
 ---
 
 ### 5️⃣ `/review-pr`
 
-**`.claude/commands/review-pr.md`**
+**`.gemini/commands/review-pr.toml`**
 
-```markdown
+```toml
+[command]
+description = "Review the current PR for mobile-specific issues"
+prompt = """
 Review the current PR for mobile-specific issues.
 
 Check the diff and look for these categories:
@@ -210,24 +249,30 @@ Group findings by severity. For each issue:
 - 📍 File + line number
 - 🐛 What's wrong
 - ✅ How to fix (with code snippet)
+"""
 ```
 
 ---
 
 ### 6️⃣ `/generate-mocks`
 
-**`.claude/commands/generate-mocks.md`**
+**`.gemini/commands/generate-mocks.toml`**
 
-```markdown
+```toml
+[command]
+description = "Generate mock implementations for testing"
+prompt = """
 Generate mock implementations for testing.
 
-Usage: `/generate-mocks TaskRepository` or `/generate-mocks $ARGUMENTS`
+Usage: `/generate-mocks TaskRepository`
+
+The user will provide the protocol/interface name as an argument.
 
 ## iOS
-Find the protocol `$ARGUMENTS` and create a mock:
+Find the protocol provided by the user and create a mock:
 
 ```swift
-final class Mock$ARGUMENTS: $ARGUMENTS {
+final class Mock{Name}: {Name} {
     // Track call counts
     var {method}CallCount = 0
     // Stubbed returns
@@ -240,15 +285,15 @@ final class Mock$ARGUMENTS: $ARGUMENTS {
 }
 ```
 
-Place in `Tests/Mocks/Mock$ARGUMENTS.swift`
+Place in `Tests/Mocks/Mock{Name}.swift`
 
 ## Android
-Find the interface `$ARGUMENTS` and create a mock using MockK pattern:
+Find the interface provided by the user and create a mock using MockK pattern:
 
 ```kotlin
-// If simple, suggest mockk<$ARGUMENTS>() inline
+// If simple, suggest mockk<{Name}>() inline
 // If complex, create a Fake:
-class Fake$ARGUMENTS : $ARGUMENTS {
+class Fake{Name} : {Name} {
     var {method}Result: Result<{ReturnType}> = Result.success(/* default */)
 
     override suspend fun {method}(...): {ReturnType} {
@@ -257,27 +302,29 @@ class Fake$ARGUMENTS : $ARGUMENTS {
 }
 ```
 
-Place in `feature/{module}/src/test/fakes/Fake$ARGUMENTS.kt`
+Place in `feature/{module}/src/test/fakes/Fake{Name}.kt`
+"""
 ```
 
 ---
 
-## 🔧 The `$ARGUMENTS` Variable
+## 🔧 Passing Arguments to Commands
 
-Commands can accept parameters. Use `$ARGUMENTS` as a placeholder:
+Commands accept parameters as additional text after the command name. The argument text is appended to the prompt that Gemini receives:
 
-```markdown
-<!-- .claude/commands/open-file.md -->
-Open the file at path $ARGUMENTS and explain its purpose and architecture.
+```
+You:  /test-module TaskList
+                   ^^^^^^^^
+                   This is passed as context to the command prompt
 ```
 
 ```
-You:  /open-file Sources/UI/Screens/TaskDetailView.swift
-                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-                 This replaces $ARGUMENTS
+You:  /generate-mocks TaskRepository
+                      ^^^^^^^^^^^^^^
+                      Gemini receives this alongside the command prompt
 ```
 
-You can use `$ARGUMENTS` multiple times in one command. It's always the full text after the command name.
+Reference the expected argument in your prompt so Gemini knows how to use it.
 
 ---
 
@@ -297,32 +344,32 @@ You can use `$ARGUMENTS` multiple times in one command. It's always the full tex
 ### Team Setup
 
 ```
-.claude/commands/
-  build-ios.md        # 🏗️ Build
-  build-android.md
-  test-module.md      # 🧪 Test
-  test-snapshot.md
-  lint-check.md       # 🔍 Quality
-  lint-fix.md
-  review-pr.md        # 📋 Review
-  generate-mocks.md   # ⚙️ Generate
+.gemini/commands/
+  build-ios.toml        # 🏗️ Build
+  build-android.toml
+  test-module.toml      # 🧪 Test
+  test-snapshot.toml
+  lint-check.toml       # 🔍 Quality
+  lint-fix.toml
+  review-pr.toml        # 📋 Review
+  generate-mocks.toml   # ⚙️ Generate
 ```
 
-**Commit these to your repo.** Every team member gets the same power tools.
+**Commit these to your repo.** Every team member gets the same power tools. Use `/commands` to see all available commands at a glance.
 
 ---
 
 ## 🧪 Try It Now
 
-1. **Create `/build-ios` or `/build-android`:** Adapt the template above to your actual project's build command. Test it.
+1. **Create `/build-ios` or `/build-android`:** Adapt the TOML template above to your actual project's build command. Test it.
 
-2. **Create a parameterized command:** Build `/test-module` with `$ARGUMENTS`. Test it with different module names.
+2. **Create a parameterized command:** Build `/test-module` that accepts a module name as an argument. Test it with different module names.
 
 3. **Create `/review-pr`:** Customize the checklist for your team's most common code review issues. Run it on your last PR.
 
 4. **Speed test:** Time yourself running your build + lint + test flow manually vs. using 3 slash commands. Feel the difference.
 
-5. **Share with your team:** Commit your `.claude/commands/` directory and watch teammates discover the commands.
+5. **Share with your team:** Commit your `.gemini/commands/` directory and watch teammates discover the commands via `/commands`.
 
 ---
 

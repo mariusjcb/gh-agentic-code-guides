@@ -2,42 +2,42 @@
 
 > **Time to read:** ~5 min | **Skill level:** Intermediate-Advanced | **Platform:** iOS & Android
 
-CLAUDE.md says "please do X." Skills teach patterns. But **hooks enforce rules.** They're deterministic shell scripts that run automatically on Claude events.
+GEMINI.md says "please do X." Skills teach patterns. But **hooks enforce rules.** They're deterministic shell scripts that run automatically on Gemini events.
 
 > 💬 "Hooks catch what prompts miss."
 
-Claude forgot to lint? The hook runs it anyway. Claude tried to commit to `main`? The hook blocks it. No exceptions.
+Gemini forgot to lint? The hook runs it anyway. Gemini tried to commit to `main`? The hook blocks it. No exceptions.
 
 ---
 
 ## 🎯 What Are Hooks?
 
-Hooks are **shell scripts that fire on specific Claude events.** They're not AI-powered — they're plain old bash. That's the point.
+Hooks are **shell scripts that fire on specific Gemini events.** They're not AI-powered — they're plain old bash. That's the point.
 
 | Layer | Type | Reliability |
 |-------|------|-------------|
-| CLAUDE.md | Instructions | 🟡 Usually followed |
+| GEMINI.md | Instructions | 🟡 Usually followed |
 | Skills | Patterns | 🟡 Usually followed |
 | **Hooks** | **Enforcement** | **🟢 Always runs** |
 
-Hooks are your safety net. They don't *ask* Claude to do something — they *make it happen*.
+Hooks are your safety net. They don't *ask* Gemini to do something — they *make it happen*.
 
 ---
 
 ## ⚙️ Configuration
 
-Hooks live in `.claude/settings.json`:
+Hooks live in `.gemini/settings.json`:
 
 ```json
 {
   "hooks": {
-    "PreToolUse": [
+    "pre-tool": [
       {
         "matcher": "Bash",
         "command": "/path/to/your/script.sh"
       }
     ],
-    "PostToolUse": [
+    "post-tool": [
       {
         "matcher": "Edit",
         "command": "/path/to/another-script.sh"
@@ -58,11 +58,26 @@ Each hook has:
 
 | Event | When It Fires | Best Use Case |
 |-------|--------------|---------------|
-| `PreToolUse` | ⏮️ Before a tool runs | Block dangerous commands |
-| `PostToolUse` | ⏭️ After a tool runs | Auto-lint, auto-format |
-| `Notification` | 🔔 Claude sends notification | Custom alerts (Slack, sound) |
-| `Stop` | 🛑 Session ends | Auto-restart loops! |
-| `SubagentStop` | 🐣 Subagent finishes | Chain tasks together |
+| `pre-tool` | ⏮️ Before a tool runs | Block dangerous commands |
+| `post-tool` | ⏭️ After a tool runs | Auto-lint, auto-format |
+| `notification` | 🔔 Gemini sends notification | Custom alerts (Slack, sound) |
+| `session-end` | 🛑 Session ends | Auto-restart loops! |
+
+### 🆕 Additional Hook Types
+
+Gemini CLI provides several hook types beyond what other AI coding tools offer:
+
+| Event | When It Fires | Best Use Case |
+|-------|--------------|---------------|
+| `session-start` | 🚀 Session begins | Setup environment, check prerequisites |
+| `pre-llm` | 🧠 Before LLM call | Modify or log prompts |
+| `post-llm` | 🧠 After LLM responds | Log or validate responses |
+| `pre-agent-loop` | 🔁 Before agent loop starts | Initialize loop state |
+| `post-agent-loop` | 🔁 After agent loop ends | Cleanup, summarize results |
+| `pre-compress` | 🗜️ Before context compression | Log or adjust compression behavior |
+| `pre-tool-selection` | 🎯 Before tool is selected | Influence tool choice |
+
+These additional hooks give you fine-grained control over every stage of the Gemini CLI pipeline.
 
 ---
 
@@ -84,15 +99,15 @@ You can also use regex patterns: `"matcher": "Bash|Edit|Write"` to match multipl
 
 ## 🔢 Exit Codes — The Control System
 
-Your hook script's exit code tells Claude what to do:
+Your hook script's exit code tells Gemini what to do:
 
-| Exit Code | Meaning | Claude's Reaction |
+| Exit Code | Meaning | Gemini's Reaction |
 |-----------|---------|-------------------|
 | `0` | ✅ Proceed | Tool runs / continues normally |
-| `2` | 🚫 Block + message | Tool is blocked; stdout shown to Claude as feedback |
+| `2` | 🚫 Block + message | Tool is blocked; stdout shown to Gemini as feedback |
 | Other | ❌ Error | Hook is ignored, tool proceeds |
 
-**Exit code `2` is your superpower.** It blocks the action AND tells Claude *why*, so it can self-correct.
+**Exit code `2` is your superpower.** It blocks the action AND tells Gemini *why*, so it can self-correct.
 
 ---
 
@@ -101,22 +116,22 @@ Your hook script's exit code tells Claude what to do:
 ```mermaid
 sequenceDiagram
     participant U as 👤 User Prompt
-    participant C as 🤖 Claude
-    participant Pre as 🪝 PreToolUse Hook
+    participant G as 🤖 Gemini
+    participant Pre as 🪝 pre-tool Hook
     participant T as 🔧 Tool
-    participant Post as 🪝 PostToolUse Hook
+    participant Post as 🪝 post-tool Hook
 
-    U->>C: "Edit TaskView.swift"
-    C->>Pre: Check before Edit
+    U->>G: "Edit TaskView.swift"
+    G->>Pre: Check before Edit
     alt Hook exits 0
-        Pre->>C: ✅ Proceed
-        C->>T: Run Edit tool
+        Pre->>G: ✅ Proceed
+        G->>T: Run Edit tool
         T->>Post: File edited
         Post->>Post: Run SwiftLint
-        Post->>C: Lint results
+        Post->>G: Lint results
     else Hook exits 2
-        Pre->>C: 🚫 Blocked + reason
-        C->>U: "Can't do that because..."
+        Pre->>G: 🚫 Blocked + reason
+        G->>U: "Can't do that because..."
     end
 ```
 
@@ -124,25 +139,25 @@ sequenceDiagram
 
 ## 📱 Mobile Hook Examples
 
-Here's a full `.claude/settings.json` for a TaskPulse mobile project:
+Here's a full `.gemini/settings.json` for a TaskPulse mobile project:
 
 ```json
 {
   "hooks": {
-    "PreToolUse": [
+    "pre-tool": [
       {
         "matcher": "Bash",
-        "command": ".claude/hooks/block-main-commit.sh"
+        "command": ".gemini/hooks/block-main-commit.sh"
       }
     ],
-    "PostToolUse": [
+    "post-tool": [
       {
         "matcher": "Edit",
-        "command": ".claude/hooks/auto-lint.sh"
+        "command": ".gemini/hooks/auto-lint.sh"
       },
       {
         "matcher": "Write",
-        "command": ".claude/hooks/auto-lint.sh"
+        "command": ".gemini/hooks/auto-lint.sh"
       }
     ]
   }
@@ -153,7 +168,7 @@ Here's a full `.claude/settings.json` for a TaskPulse mobile project:
 
 ### 🚫 Block Commits to `main`
 
-**`.claude/hooks/block-main-commit.sh`**
+**`.gemini/hooks/block-main-commit.sh`**
 
 ```bash
 #!/bin/bash
@@ -178,7 +193,7 @@ exit 0
 
 ### 🧹 Auto-Lint After Every Edit
 
-**`.claude/hooks/auto-lint.sh`**
+**`.gemini/hooks/auto-lint.sh`**
 
 ```bash
 #!/bin/bash
@@ -222,7 +237,7 @@ exit 0
 
 ### 🎨 Auto-Format on Save
 
-**`.claude/hooks/auto-format.sh`**
+**`.gemini/hooks/auto-format.sh`**
 
 ```bash
 #!/bin/bash
@@ -257,7 +272,7 @@ exit 0
 
 ### 🧪 Run Tests Before Git Commit
 
-**`.claude/hooks/pre-commit-tests.sh`**
+**`.gemini/hooks/pre-commit-tests.sh`**
 
 ```bash
 #!/bin/bash
@@ -315,31 +330,31 @@ The three layers work together:
 │  ⚡ Skills (Patterns)               │  ← "Here's HOW to write it"
 │  Auto-loaded. AI-interpreted.       │
 ├─────────────────────────────────────┤
-│  📝 CLAUDE.md (Instructions)        │  ← "Here's WHAT we do"
+│  📝 GEMINI.md (Instructions)        │  ← "Here's WHAT we do"
 │  Always present. Sets the tone.     │
 └─────────────────────────────────────┘
 ```
 
 | Layer | Strength | Weakness |
 |-------|----------|----------|
-| CLAUDE.md | Broad guidance | Can be ignored by AI |
+| GEMINI.md | Broad guidance | Can be ignored by AI |
 | Skills | Detailed patterns | Only loads when matched |
 | **Hooks** | **Always executes** | **Only reacts, can't generate** |
 
-**Use all three together.** CLAUDE.md teaches. Skills demonstrate. Hooks enforce.
+**Use all three together.** GEMINI.md teaches. Skills demonstrate. Hooks enforce.
 
 ---
 
 ## 🧪 Try It Now
 
-1. **Create a lint hook:** Set up `auto-lint.sh` to run SwiftLint or ktlint after every file edit. Watch Claude get instant feedback.
+1. **Create a lint hook:** Set up `auto-lint.sh` to run SwiftLint or ktlint after every file edit. Watch Gemini get instant feedback.
 
 2. **Block `main` commits:** Add the branch protection hook. Try to commit to `main` and see it blocked.
 
-3. **Test exit code 2:** Write a hook that blocks any file write to `Sources/Generated/` (auto-generated files shouldn't be hand-edited). Verify Claude gets the message and adjusts.
+3. **Test exit code 2:** Write a hook that blocks any file write to `Sources/Generated/` (auto-generated files shouldn't be hand-edited). Verify Gemini gets the message and adjusts.
 
 4. **Build the full stack:** For one feature in TaskPulse, set up:
-   - CLAUDE.md rule: "All views must have previews"
+   - GEMINI.md rule: "All views must have previews"
    - Skill: SwiftUI component generator with preview template
    - Hook: Script that checks `#Preview` exists after `.swift` file creation
 
