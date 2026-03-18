@@ -9,15 +9,15 @@
 ```
  💥 Basics  →  ⚡ Power Tools  →  🐝 Agentic  →  🔄 Autonomous
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
- CLAUDE.md      Skills          Agent Teams     Ralph Loops
+ GEMINI.md      Custom Agents   Multi-Agent     Ralph Loops
  AGENTS.md      Commands        MCP Servers     PRD → Ship
  Prompting      Hooks           Custom MCP      Full Pipeline
-                Subagents       Swarms          Jira Integration
+                Subagents       Delegation      Jira Integration
 ```
 
 ---
 
-> ⚠️ **Did you know?** AI creates **1.7× more bugs** than humans. This course teaches you how to fix that — with memory, guardrails, specialized skills, and autonomous loops that make AI actually reliable.
+> ⚠️ **Did you know?** AI creates **1.7× more bugs** than humans. This course teaches you how to fix that — with memory, guardrails, specialized agents, and autonomous loops that make AI actually reliable.
 
 ---
 
@@ -37,14 +37,14 @@ All examples use **TaskPulse** — a collaborative task manager app.
 | # | Guide | What You'll Learn |
 |---|-------|-------------------|
 | 01 | [Why AI Fails](Part%201%20—%20Foundations/01-why-ai-fails.md) | The problem: why AI makes so many mistakes |
-| 02 | [CLAUDE.md Basics](Part%201%20—%20Foundations/02-claude-md-basics.md) | Give AI persistent memory about your project |
+| 02 | [GEMINI.md Basics](Part%201%20—%20Foundations/02-gemini-md-basics.md) | Give AI persistent memory about your project |
 | 03 | [AGENTS.md](Part%201%20—%20Foundations/03-agents-md.md) | Universal config for all AI tools |
 | 04 | [Smart Prompting](Part%201%20—%20Foundations/04-smart-prompting.md) | The CRAC framework + 10 mobile templates |
 
 ### Part 2 — ⚡ Power Tools (~12 min)
 | # | Guide | What You'll Learn |
 |---|-------|-------------------|
-| 05 | [Skills](Part%202%20—%20Power%20Tools/05-skills.md) | Auto-triggering reusable instructions |
+| 05 | [Custom Agents](Part%202%20—%20Power%20Tools/05-skills.md) | Auto-triggering reusable instructions |
 | 06 | [Commands](Part%202%20—%20Power%20Tools/06-commands.md) | Custom `/slash` commands for your workflow |
 | 07 | [Hooks](Part%202%20—%20Power%20Tools/07-hooks.md) | Guardrails that catch what prompts miss |
 | 08 | [Subagents](Part%202%20—%20Power%20Tools/08-subagents.md) | Focused workers for parallel tasks |
@@ -52,7 +52,7 @@ All examples use **TaskPulse** — a collaborative task manager app.
 ### Part 3 — 🐝 Agentic Patterns (~12 min)
 | # | Guide | What You'll Learn |
 |---|-------|-------------------|
-| 09 | [Agent Teams](Part%203%20—%20Agentic%20Patterns/09-agent-teams.md) | Swarms of AI working in parallel |
+| 09 | [Multi-Agent Delegation](Part%203%20—%20Agentic%20Patterns/09-agent-teams.md) | Multiple AI agents working in parallel |
 | 10 | [MCP Servers](Part%203%20—%20Agentic%20Patterns/10-mcp-servers.md) | Connect AI to GitHub, Figma, Firebase |
 | 11 | [Custom MCP](Part%203%20—%20Agentic%20Patterns/11-custom-mcp.md) | Build your own MCP server |
 | 12 | [Ralph Loops](Part%203%20—%20Agentic%20Patterns/12-ralph-loops.md) | Walk away, come back to done |
@@ -103,8 +103,8 @@ All examples use **TaskPulse** — a collaborative task manager app.
 ## 🚀 Quick Start
 
 1. **Read** [01-why-ai-fails.md](Part%201%20—%20Foundations/01-why-ai-fails.md) to understand the problem
-2. **Create** your first [CLAUDE.md](Part%201%20—%20Foundations/02-claude-md-basics.md)
-3. **Level up** with [Skills](Part%202%20—%20Power%20Tools/05-skills.md) and [Hooks](Part%202%20—%20Power%20Tools/07-hooks.md)
+2. **Create** your first [GEMINI.md](Part%201%20—%20Foundations/02-gemini-md-basics.md)
+3. **Level up** with [Custom Agents](Part%202%20—%20Power%20Tools/05-skills.md) and [Hooks](Part%202%20—%20Power%20Tools/07-hooks.md)
 4. **Go autonomous** with [Ralph Loops](Part%203%20—%20Agentic%20Patterns/12-ralph-loops.md)
 5. **Pick your scenario** from [Part 5](Part%205%20—%20Daily%20Scenarios/) for daily work
 
