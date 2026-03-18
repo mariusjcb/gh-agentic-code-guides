@@ -19,7 +19,7 @@ Your architecture doc says "we use Combine for networking." You migrated to asyn
 
 - ✅ Existing documentation (even if outdated)
 - ✅ Access to the codebase (AI needs to cross-reference)
-- ✅ `CLAUDE.md` configured
+- ✅ `GEMINI.md` configured
 
 ---
 

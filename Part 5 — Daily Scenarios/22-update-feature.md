@@ -17,7 +17,7 @@ Adding a "due date" to your existing Task model sounds simple. Then you realize 
 
 ## 📋 Prerequisites
 
-- ✅ Working `CLAUDE.md` with project architecture
+- ✅ Working `GEMINI.md` with project architecture
 - ✅ Subagent basics ([Part 3](../Part%203%20—%20Agentic%20Patterns/09-agent-teams.md))
 - ✅ Existing feature to update (we'll use TaskPulse's Task model)
 

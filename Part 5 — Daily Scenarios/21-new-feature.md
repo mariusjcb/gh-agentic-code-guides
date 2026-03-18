@@ -17,9 +17,9 @@ You got a new feature request. The backlog item says "Add Tags/Labels to tasks."
 
 ## 📋 Prerequisites
 
-- ✅ `CLAUDE.md` configured with project architecture ([Part 1](../Part%201%20—%20Foundations/01-why-ai-fails.md))
-- ✅ Skills for UI components and tests ([Part 2](../Part%202%20—%20Power%20Tools/05-skills.md))
-- ✅ Agent teams understood ([Part 3](../Part%203%20—%20Agentic%20Patterns/09-agent-teams.md))
+- ✅ `GEMINI.md` configured with project architecture ([Part 1](../Part%201%20—%20Foundations/01-why-ai-fails.md))
+- ✅ Custom Agents for UI components and tests ([Part 2](../Part%202%20—%20Power%20Tools/05-skills.md))
+- ✅ Multi-Agent Coordination understood ([Part 3](../Part%203%20—%20Agentic%20Patterns/09-agent-teams.md))
 - ✅ Ralph Loop basics ([Part 4](../Part%204%20—%20Workflow%20Methodologies/))
 
 ---
@@ -31,7 +31,7 @@ flowchart TD
     A["💡 Feature Idea"] --> B["📝 Step 1: Mini-PRD"]
     B --> C["🧠 Step 2: Plan Mode"]
     C --> D["📋 Step 3: RFCs + Tickets"]
-    D --> E["🤖 Step 4: Agent Team"]
+    D --> E["🤖 Step 4: Multi-Agent Coordination"]
     E --> F["🔄 Step 5: Ralph Loop"]
     F --> G["✅ Step 6: Review & Merge"]
 
@@ -58,7 +58,7 @@ Acceptance Criteria, Technical Constraints, and Out of Scope.
 
 ### Step 2: Plan Mode Architecture 🧠
 
-Hit **Shift+Tab** to enter plan mode. No code — just thinking.
+Use **`/plan`** to enter plan mode. No code — just thinking.
 
 ```
 Given this PRD for Tags/Labels, plan the architecture:
@@ -87,7 +87,7 @@ For each RFC, generate GitHub-issue-style tickets with:
 - Title, description, acceptance criteria, estimated complexity (S/M/L)
 ```
 
-### Step 4: Compose Your Agent Team 🤖
+### Step 4: Coordinate Your Agents 🤖
 
 Spin up focused agents for parallel work:
 
@@ -99,7 +99,7 @@ Agent 1 — "Data Layer": Create Tag model, TagRepository,
   core/model/Tag.kt, etc.
 
 Agent 2 — "UI Components": Create TagChipView, TagPickerSheet,
-  TagFilterBar. Follow existing component skills.
+  TagFilterBar. Follow existing component custom agents.
 
 Agent 3 — "Test Suite": Write unit tests for TagRepository,
   TagViewModel. Write UI tests for TagPickerSheet.
@@ -130,7 +130,7 @@ or if you hit 3 consecutive failures on the same issue.
 ```
 Review the Tags feature implementation:
 
-1. Check all new files follow CLAUDE.md conventions
+1. Check all new files follow GEMINI.md conventions
 2. Verify test coverage > 80% for new code
 3. Ensure no hardcoded strings (all localized)
 4. Confirm accessibility labels on all interactive elements
@@ -250,7 +250,7 @@ Before calling the feature "done":
 - [ ] Mini-PRD written and reviewed
 - [ ] Architecture planned in plan mode
 - [ ] RFCs created and broken into tickets
-- [ ] Agent team composed (UI, Data, Tests)
+- [ ] Agents composed (UI, Data, Tests)
 - [ ] Ralph Loop ran to green build + green tests
 - [ ] Code review completed
 - [ ] PR description generated
@@ -266,7 +266,7 @@ Before calling the feature "done":
 
 1. **Write the mini-PRD** — Paste the brain dump prompt above. Review AI's structured output. Does it capture all requirements?
 
-2. **Plan Mode architecture** — Enter plan mode (Shift+Tab) and design the Tags module. Compare iOS vs Android structures.
+2. **Plan Mode architecture** — Enter plan mode (`/plan`) and design the Tags module. Compare iOS vs Android structures.
 
 3. **Generate tickets** — Ask AI to break the plan into 6-8 tickets. Would you actually assign these in a sprint?
 

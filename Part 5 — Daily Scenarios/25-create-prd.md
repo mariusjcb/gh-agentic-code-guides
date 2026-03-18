@@ -19,7 +19,7 @@ You have a great idea. It's in your head, some Slack messages, and a napkin sket
 
 - ✅ A feature idea (even a rough one)
 - ✅ Knowledge of your user personas
-- ✅ Plan mode available (Shift+Tab)
+- ✅ Plan mode available (`/plan`)
 
 ---
 
@@ -97,7 +97,7 @@ with instant sync and presence awareness.
 
 ### Step 3: Iterate in Plan Mode 🔄
 
-Hit **Shift+Tab** for plan mode. Refine without generating code:
+Use **`/plan`** for plan mode. Refine without generating code:
 
 ```
 Review this PRD in plan mode:
