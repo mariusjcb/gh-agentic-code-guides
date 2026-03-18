@@ -8,14 +8,15 @@
 
 | File | Path | Purpose |
 |------|------|---------|
-| **CLAUDE.md** | `./CLAUDE.md` | Project-wide AI memory (architecture, rules, patterns) |
+| **GEMINI.md** | `./GEMINI.md` | Project-wide AI memory (architecture, rules, patterns) |
 | **AGENTS.md** | `./AGENTS.md` | Multi-agent role definitions and coordination |
-| **Skills** | `.claude/skills/*/SKILL.md` | Auto-triggered reusable instruction sets |
-| **Commands** | `.claude/commands/*.md` | On-demand slash commands |
-| **Settings** | `.claude/settings.json` | Tool permissions, MCP servers, model config |
-| **User Settings** | `~/.claude/settings.json` | Global user-level preferences |
-| **MCP Config** | `.claude/settings.json` → `mcpServers` | MCP server connections |
-| **Hooks** | `.claude/settings.json` → `hooks` | Pre/post event triggers |
+| **Agents** | `.gemini/agents/*.md` | Auto-triggered reusable instruction sets |
+| **Commands** | Custom commands (`.toml` files) | On-demand slash commands |
+| **Settings** | `.gemini/settings.json` | Tool permissions, MCP servers, model config |
+| **User Settings** | `~/.gemini/settings.json` | Global user-level preferences |
+| **MCP Config** | `.gemini/settings.json` → `mcpServers` | MCP server connections |
+| **Hooks** | `.gemini/settings.json` → `hooks` | Pre/post event triggers |
+| **Extensions** | `.gemini/extensions/` | Custom extensions for added capabilities |
 
 ---
 
@@ -25,13 +26,14 @@
 
 | Need | Tool | Why | Set Up Time |
 |------|------|-----|-------------|
-| 🧠 Consistent output every session | **CLAUDE.md** | Persistent memory across sessions | 10 min |
-| 🔁 Repeated pattern (auto-triggered) | **Skill** | Loads automatically when relevant | 15 min |
+| 🧠 Consistent output every session | **GEMINI.md** | Persistent memory across sessions | 10 min |
+| 🔁 Repeated pattern (auto-triggered) | **Agent** | Loads automatically when relevant | 15 min |
 | 🎯 Manual workflow (on-demand) | **Command** | Triggered with `/slash` commands | 10 min |
 | 🛡️ Error prevention (deterministic) | **Hook** | Runs scripts before/after actions | 20 min |
 | 🔍 Quick focused research | **Subagent** | Scoped context, doesn't pollute main chat | 0 min |
-| 👥 Parallel independent work | **Agent Team** | Multiple agents work simultaneously | 5 min |
+| 👥 Parallel independent work | **Multi-agent** | Multiple agents work via shell tool delegation | 5 min |
 | 🔌 External data / tools | **MCP Server** | Standardized protocol for integrations | 30 min |
+| 🧩 Extended capabilities | **Extension** | Add new tools via `.gemini/extensions/` | 15 min |
 | 🤖 Full autonomous implementation | **Ralph Loop** | Self-correcting build→test→fix cycle | 5 min |
 
 ### Quick Decision Flowchart
@@ -42,13 +44,13 @@ flowchart TD
     B -->|Yes| C{"Automatic or manual?"}
     B -->|No| D{"External data?"}
 
-    C -->|Automatic| E["⚡ Skill"]
+    C -->|Automatic| E["⚡ Agent"]
     C -->|Manual| F["🎯 Command"]
 
     D -->|Yes| G["🔌 MCP Server"]
     D -->|No| H{"Parallel work?"}
 
-    H -->|Yes| I["👥 Agent Team"]
+    H -->|Yes| I["👥 Multi-agent"]
     H -->|No| J{"Self-correcting?"}
 
     J -->|Yes| K["🔄 Ralph Loop"]
@@ -61,8 +63,8 @@ flowchart TD
 
 | Shortcut / Command | What It Does |
 |---------------------|-------------|
-| `Shift+Tab` | Toggle **Plan Mode** (thinking without coding) |
-| `/init` | Initialize CLAUDE.md for current project |
+| `/plan` | Toggle **Plan Mode** (thinking without coding) |
+| `/init` | Initialize GEMINI.md for current project |
 | `/compact` | Compress conversation context to save tokens |
 | `Escape` | Cancel current AI generation |
 | `#` (in prompt) | Reference a file path |
@@ -72,16 +74,16 @@ flowchart TD
 
 ```bash
 # Headless mode (no interactive UI)
-claude --headless -p "Your prompt here"
+gemini --headless
 
 # Specify model
-claude --model claude-sonnet-4-20250514
+gemini --model gemini-2.5-pro
 
 # Resume last conversation
-claude --continue
+gemini --continue
 
 # Print output only (for piping)
-claude --print -p "Your prompt"
+gemini --print -p "Your prompt"
 ```
 
 ---
@@ -130,7 +132,7 @@ fetch next page when user scrolls to bottom.
 | AI security vulnerabilities | **1.5-2x more** without rules | GitClear Analysis |
 | Devs who won't merge AI code unreviewed | **71%** | Stack Overflow Survey |
 | AI-generated code with defects | **41%** | Microsoft Research |
-| Context window utilization sweet spot | **60-70%** | Anthropic Guidance |
+| Context window utilization sweet spot | **60-70%** | Google DeepMind Guidance |
 
 ---
 
@@ -148,7 +150,7 @@ Implement [TASK]. After each change:
 
 ---
 
-## 🏗️ Agent Team Template
+## 🏗️ Multi-agent Template
 
 ```
 Launch [N] subagents:
@@ -192,11 +194,11 @@ xcodebuild test -scheme TaskPulse -destination 'platform=iOS Simulator,name=iPho
 
 ## 🎯 The Golden Rules
 
-1. **Context is everything** — CLAUDE.md > clever prompting
-2. **Plan before code** — Shift+Tab saves hours of rework
+1. **Context is everything** — GEMINI.md > clever prompting
+2. **Plan before code** — /plan saves hours of rework
 3. **Verify every step** — Ralph Loop: build, test, fix, repeat
 4. **Understand before changing** — Explore → impact analysis → implement
-5. **Skills > repeating yourself** — If you've said it 3x, make it a skill
+5. **Agents > repeating yourself** — If you've said it 3x, make it an agent
 6. **Flags > big-bang launches** — Ship safely with feature flags
 7. **Docs travel with code** — Doc-as-code, not doc-in-wiki
 

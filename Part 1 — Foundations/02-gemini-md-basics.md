@@ -1,8 +1,8 @@
-# 📝 Your First CLAUDE.md
+# 📝 Your First GEMINI.md
 
 > **One file. Infinite context. Every session.**
 
-`CLAUDE.md` is a markdown file at your project root that Claude reads **automatically** at the start of every session. It's your AI's onboarding doc, style guide, and architecture reference — combined.
+`GEMINI.md` is a markdown file at your project root that Gemini CLI reads **automatically** at the start of every session. It's your AI's onboarding doc, style guide, and architecture reference — combined.
 
 No more repeating yourself. No more "actually, we use MVVM here."
 
@@ -10,17 +10,17 @@ No more repeating yourself. No more "actually, we use MVVM here."
 
 ## 🚀 Quick Start
 
-**30 seconds to your first CLAUDE.md:**
+**30 seconds to your first GEMINI.md:**
 
 ```bash
 # In your project root
-claude
+gemini
 
 # Then type:
-/init
+/memory add "This is a SwiftUI + MVVM project called TaskPulse"
 ```
 
-Claude scans your repo and generates a starter `CLAUDE.md`. It'll detect:
+Gemini CLI stores memory entries that persist across sessions. You can also create a `GEMINI.md` file directly in your project root for structured project context. It'll detect:
 - 📦 Package manager (SPM, CocoaPods, Gradle)
 - 🏗️ Project structure and modules
 - 🧪 Test frameworks and patterns
@@ -30,9 +30,9 @@ Claude scans your repo and generates a starter `CLAUDE.md`. It'll detect:
 
 ---
 
-## 📐 Anatomy of CLAUDE.md
+## 📐 Anatomy of GEMINI.md
 
-Every good `CLAUDE.md` has these sections. Here's what each looks like for TaskPulse:
+Every good `GEMINI.md` has these sections. Here's what each looks like for TaskPulse:
 
 ### 1️⃣ Project Context
 
@@ -89,35 +89,35 @@ swift build --package-path Packages/Core
 
 Here's a constraint most people miss:
 
-> Frontier LLMs reliably follow **150–200 instructions.** Claude's own system prompt uses ~50 of those slots. That leaves **~100–150 effective instructions** for your CLAUDE.md.
+> Frontier LLMs reliably follow **150–200 instructions.** Gemini's own system prompt uses ~50 of those slots. That leaves **~100–150 effective instructions** for your GEMINI.md.
 
 | Budget | Used By |
 |--------|---------|
 | ~200 total | LLM instruction-following capacity |
-| ~50 | Claude's system prompt |
-| **~150** | **Your CLAUDE.md budget** |
+| ~50 | Gemini's system prompt |
+| **~150** | **Your GEMINI.md budget** |
 
 **Practical limit: ~300 lines of markdown** (comments, headers, and whitespace don't count as instructions).
 
-Going over? Your later rules get ignored. The fix: **@imports.**
+Going over? Your later rules get ignored. The fix: **@file.md imports.**
 
 ---
 
-## 🔗 @imports — Splitting for Sanity
+## 🔗 @file.md Imports — Splitting for Sanity
 
-Break your CLAUDE.md into focused files. Only the relevant content loads per session.
+Break your GEMINI.md into focused files using the `@file.md` import syntax. Only the relevant content loads per session.
 
 ```markdown
-# In your root CLAUDE.md:
-@.claude/architecture.md
-@.claude/testing-conventions.md
-@.claude/api-patterns.md
+# In your root GEMINI.md:
+@.gemini/architecture.md
+@.gemini/testing-conventions.md
+@.gemini/api-patterns.md
 ```
 
 ### TaskPulse Import Structure
 
 ```
-.claude/
+.gemini/
 ├── architecture.md        # MVVM layers, module boundaries, dependency graph
 ├── testing-conventions.md # XCTest/JUnit patterns, mock generation rules
 ├── api-patterns.md        # NetworkService protocol, endpoint conventions
@@ -126,7 +126,7 @@ Break your CLAUDE.md into focused files. Only the relevant content loads per ses
 └── review-checklist.md    # PR review criteria
 ```
 
-**`.claude/architecture.md` example:**
+**`.gemini/architecture.md` example:**
 
 ```markdown
 ## Module Dependency Graph
@@ -140,7 +140,7 @@ UI is shared across all Features modules.
 - Services are protocol/interface-based for testability
 ```
 
-**`.claude/testing-conventions.md` example:**
+**`.gemini/testing-conventions.md` example:**
 
 ```markdown
 ## Testing Rules
@@ -153,12 +153,34 @@ UI is shared across all Features modules.
 
 ---
 
-## 🚫 .claudeignore
+## 🧠 /memory Commands
+
+Gemini CLI provides built-in `/memory` commands for managing persistent context without editing files directly:
+
+```bash
+# Add a memory entry
+/memory add "Always use async/await instead of Combine for new Swift code"
+
+# List all memory entries
+/memory list
+
+# Show full memory contents
+/memory show
+
+# Reload memory from disk (after manual edits)
+/memory reload
+```
+
+Memory entries are stored in `GEMINI.md` files and persist across sessions. Use `/memory add` for quick one-liners and edit `GEMINI.md` directly for structured, multi-line project context.
+
+---
+
+## 🚫 .geminiignore
 
 Keep AI focused. Exclude noise.
 
 ```gitignore
-# .claudeignore
+# .geminiignore
 # iOS
 DerivedData/
 *.xcuserdata
@@ -181,24 +203,32 @@ node_modules/
 
 ---
 
-## 📂 Nested CLAUDE.md
+## 📂 Hierarchical GEMINI.md Loading
 
-Module-level CLAUDE.md files **override** root rules for that directory.
+Gemini CLI loads `GEMINI.md` files hierarchically: **global → project root → subdirectory**. Subdirectory-level files **extend and override** higher-level rules for that directory.
 
 ```
+~/.gemini/
+├── GEMINI.md                             # Global — rules for ALL projects
+
 TaskPulse/
-├── CLAUDE.md                          # Root — global rules
+├── GEMINI.md                             # Project root — project-wide rules
 ├── Sources/
 │   ├── Features/
 │   │   ├── Chat/
-│   │   │   └── CLAUDE.md             # Chat-specific rules
+│   │   │   └── GEMINI.md                # Chat-specific rules
 │   │   └── TaskList/
-│   │       └── CLAUDE.md             # TaskList-specific rules
+│   │       └── GEMINI.md                # TaskList-specific rules
 │   └── Networking/
-│       └── CLAUDE.md                  # API layer rules
+│       └── GEMINI.md                     # API layer rules
 ```
 
-**`Features/Chat/CLAUDE.md` example:**
+**Loading order:**
+1. `~/.gemini/GEMINI.md` — Global defaults (your personal style preferences)
+2. `TaskPulse/GEMINI.md` — Project-wide rules
+3. `TaskPulse/Sources/Features/Chat/GEMINI.md` — Directory-specific overrides
+
+**`Features/Chat/GEMINI.md` example:**
 
 ```markdown
 # Chat Module Rules
@@ -208,11 +238,11 @@ TaskPulse/
 - Reference implementation: MessageBubbleView.swift for UI patterns
 ```
 
-This is powerful. The Chat module has security rules that don't apply elsewhere. Nested CLAUDE.md keeps them scoped.
+This is powerful. The Chat module has security rules that don't apply elsewhere. Hierarchical GEMINI.md keeps them scoped.
 
 ---
 
-## 📋 Complete TaskPulse CLAUDE.md
+## 📋 Complete TaskPulse GEMINI.md
 
 Here's a production-ready example. **Copy and adapt this.**
 
@@ -280,8 +310,8 @@ swift test --package-path Packages/Core
 - Don't add dependencies without discussing in PR description
 - Don't use #if DEBUG for feature flags (use FeatureFlag service)
 
-@.claude/api-patterns.md
-@.claude/testing-conventions.md
+@.gemini/api-patterns.md
+@.gemini/testing-conventions.md
 ```
 
 **~80 lines. Under budget. Covers both platforms.**
@@ -290,17 +320,19 @@ swift test --package-path Packages/Core
 
 ## 🧪 Try It Now
 
-1. **Create your CLAUDE.md.** Run `/init` in your project, then customize:
+1. **Create your GEMINI.md.** Create a `GEMINI.md` in your project root, then customize:
    - [ ] Add your project's architecture pattern
    - [ ] Add 3 code style rules AI keeps violating
    - [ ] Add your exact build/test commands
    - [ ] Add one "Don't" rule based on past AI mistakes
 
-2. **Test it.** Start a new Claude session and ask: *"What architecture pattern does this project use?"* It should answer from your CLAUDE.md without looking at code.
+2. **Test it.** Start a new Gemini CLI session and ask: *"What architecture pattern does this project use?"* It should answer from your GEMINI.md without looking at code.
 
-3. **Extract one @import.** Move your testing conventions to `.claude/testing-conventions.md` and add the `@` import to your root CLAUDE.md.
+3. **Extract one @file.md import.** Move your testing conventions to `.gemini/testing-conventions.md` and add the `@` import to your root GEMINI.md.
 
-4. **Create a .claudeignore.** Add your build artifacts and generated files.
+4. **Create a .geminiignore.** Add your build artifacts and generated files.
+
+5. **Try /memory commands.** Run `/memory add` to store a quick rule, then `/memory list` to verify it persisted.
 
 ---
 
