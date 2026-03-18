@@ -195,7 +195,7 @@ They have 15 years of experience. They know Swift, Kotlin, every design pattern.
 
 What happens? They write **technically correct code** that **doesn't fit your project.**
 
-That's exactly what AI does every session without a `CLAUDE.md`.
+That's exactly what AI does every session without a `GEMINI.md`.
 
 > **This course turns your AI from an unboarded contractor into a team member with perfect institutional memory.**
 
@@ -221,7 +221,7 @@ flowchart LR
 
 | Part | You'll Learn | AI Gets |
 |------|-------------|---------|
-| 1 — Foundations | CLAUDE.md, AGENTS.md, prompting | Memory + context |
+| 1 — Foundations | GEMINI.md, AGENTS.md, prompting | Memory + context |
 | 2 — Power Tools | Custom commands, MCP servers, hooks | Specialized skills |
 | 3 — Agentic Patterns | Multi-agent, parallel work, planning | Independence |
 | 4 — Workflows | Headless mode, CI/CD, PR reviews | Autonomy |
@@ -277,7 +277,7 @@ The difference? **Context.** Let's build yours.
    - Hardcoded values that should be constants
    - Missing error states
 
-3. **Write it down.** Start a list of "mistakes AI keeps making in MY project." You'll turn this into CLAUDE.md rules in the next chapter.
+3. **Write it down.** Start a list of "mistakes AI keeps making in MY project." You'll turn this into GEMINI.md rules in the next chapter.
 
 ---
 
