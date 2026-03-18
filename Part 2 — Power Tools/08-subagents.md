@@ -4,13 +4,15 @@
 
 You wouldn't ask a senior dev to simultaneously review memory leaks, audit error handling, AND check accessibility. You'd delegate. **Subagents are your delegation system.**
 
-A subagent is a focused, scoped worker within your main Claude session. Think of it like dispatching a junior dev to research one specific thing and report back.
+A subagent is a focused, scoped worker within your main Gemini session. Think of it like dispatching a junior dev to research one specific thing and report back.
+
+> ⚠️ Subagents in Gemini CLI are an **experimental** feature. The API and behavior may evolve.
 
 ---
 
 ## 🎯 What's a Subagent?
 
-A subagent is a separate Claude instance that:
+A subagent is a separate Gemini instance that:
 - Gets a **focused task** with a narrow scope
 - Has its **own context window** (doesn't pollute yours)
 - **Returns findings** to the main agent
@@ -23,6 +25,63 @@ Main Agent → Subagent 2: "Audit Combine subscriptions"
 Main Agent → Subagent 3: "Review error handling"
 All 3 report back → Main Agent synthesizes → You get a clean summary
 ```
+
+---
+
+## 🛠️ Defining Custom Subagents
+
+Custom subagents are defined as `.md` files with YAML frontmatter. They can live in two locations:
+
+| Location | Scope |
+|----------|-------|
+| `.gemini/agents/` | Project-level (shared via version control) |
+| `~/.gemini/agents/` | User-level (available across all projects) |
+
+**Example: `.gemini/agents/memory-leak-hunter.md`**
+
+```markdown
+---
+name: memory-leak-hunter
+description: Finds retain cycles and memory leaks in Swift ViewModels
+tools:
+  - read
+  - grep
+---
+
+You are a memory leak specialist for Swift/iOS codebases.
+
+Given a directory of Swift files, check for:
+- Closures capturing `self` without `[weak self]`
+- Strong reference cycles between objects
+- Missing `deinit` on ViewModels with Combine subscriptions
+
+Return a markdown table of findings: file, line, issue, severity.
+```
+
+Custom subagents must be **enabled** in `.gemini/settings.json`:
+
+```json
+{
+  "agents": {
+    "memory-leak-hunter": {
+      "enabled": true
+    }
+  }
+}
+```
+
+---
+
+## 🔍 Built-in Research Subagents
+
+Gemini CLI includes built-in subagents available by default in Plan Mode (`/plan`):
+
+| Subagent | Purpose |
+|----------|---------|
+| `codebase_investigator` | Deep exploration of project structure, dependencies, and patterns |
+| `cli_help` | Answers questions about Gemini CLI usage and configuration |
+
+These don't need to be defined or enabled — they're ready to use out of the box when working in Plan Mode.
 
 ---
 
@@ -48,7 +107,7 @@ All 3 report back → Main Agent synthesizes → You get a clean summary
 Your main session is building a feature, and you need to understand how navigation works — but you don't want 50 files cluttering your context.
 
 ```
-Prompt to Claude:
+Prompt to Gemini:
 
 "Launch a subagent to explore how TaskPulse handles navigation.
 Check the Coordinator pattern in Sources/Navigation/.
@@ -68,7 +127,7 @@ The subagent dives in, reads 15 files, and returns a **summary**. Your main cont
 The real power: multiple subagents running **at the same time**.
 
 ```
-Prompt to Claude:
+Prompt to Gemini:
 
 "I need a health check on the TaskPulse iOS codebase.
 Launch 3 subagents:
@@ -109,7 +168,7 @@ Each subagent works independently. Main agent collects results. You get one clea
 Instead of one massive review, break it into focused passes:
 
 ```
-Prompt to Claude:
+Prompt to Gemini:
 
 "Review the Chat module for production readiness.
 Use subagents for each concern:
@@ -140,7 +199,7 @@ Subagent 3 — Accessibility:
 ### 4️⃣ Dependency Audit
 
 ```
-Prompt to Claude:
+Prompt to Gemini:
 
 "Audit TaskPulse dependencies for issues.
 
@@ -184,7 +243,7 @@ latest version, and any issues found."
 Output of one subagent can feed into the next:
 
 ```
-Prompt to Claude:
+Prompt to Gemini:
 
 "Let's refactor TaskPulse error handling in 3 phases.
 
@@ -210,7 +269,7 @@ flowchart LR
     B --> C3["🐣 Phase 3c\nMigrate Auth"]
 ```
 
-**Phase 1** explores. **Phase 2** you and Claude decide together. **Phase 3** subagents execute in parallel.
+**Phase 1** explores. **Phase 2** you and Gemini decide together. **Phase 3** subagents execute in parallel.
 
 ---
 
@@ -225,6 +284,7 @@ Know the edges:
 | 🔄 No memory between subagents | Each starts fresh |
 | 1️⃣ One level deep | Subagents can't spawn their own subagents |
 | 🐌 Overhead | Spinning up a subagent isn't free — don't use for trivial tasks |
+| 🧪 Experimental | Feature is still evolving — behavior may change |
 
 ### 💡 Best Practices
 
@@ -232,12 +292,13 @@ Know the edges:
 - **Specify the output format.** "Return a markdown table" or "Return a bullet list of file:line pairs."
 - **Include file paths.** Don't make the subagent search. Tell it where to look.
 - **Set boundaries.** "Read-only, don't change files" for investigation tasks.
+- **Define agents as `.md` files** in `.gemini/agents/` so the whole team benefits from specialized subagents.
 
 ---
 
 ## 🧪 Try It Now
 
-1. **Single subagent exploration:** Ask Claude to launch a subagent to explore one module you're unfamiliar with. Notice how your main context stays clean.
+1. **Single subagent exploration:** Ask Gemini to launch a subagent to explore one module you're unfamiliar with. Notice how your main context stays clean.
 
 2. **Parallel code review:** Set up 3 subagents to review the same module for different concerns (thread safety, accessibility, performance). Compare the focused results vs a single broad review.
 
@@ -248,6 +309,8 @@ Know the edges:
    - (B) Delegated to subagents
 
    Notice how (B) keeps your conversation cleaner and your main agent more responsive.
+
+5. **Create a custom subagent:** Define a `.md` file in `.gemini/agents/` for a specialized task (e.g., accessibility auditor) and enable it in `settings.json`. Use it across multiple sessions.
 
 ---
 
