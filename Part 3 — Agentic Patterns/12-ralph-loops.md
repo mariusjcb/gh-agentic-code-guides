@@ -312,6 +312,59 @@ Start simple. Work your way up.
 
 ---
 
+## 🔄 `/loop` — Built-in Scheduled Repetition
+
+Claude Code has a **built-in `/loop` command** for simpler recurring tasks — no bash script needed:
+
+```bash
+# Run a command every 5 minutes
+/loop 5m /build-ios
+
+# Default interval is 10 minutes
+/loop /run-tests
+
+# Run a custom check repeatedly
+/loop 3m "Check if the API server is responding and report status"
+```
+
+| Feature | Ralph Loop (bash script) | `/loop` (built-in) |
+|---------|------------------------|-------------------|
+| Setup | Write `ralph.sh` script | One-line command |
+| Complexity | Full control, custom logic | Simple recurring tasks |
+| Completion | Custom exit condition | Manual stop (Ctrl+C) |
+| Use case | Feature implementation | Monitoring, polling, recurring checks |
+
+**When to use which:**
+- **Ralph Loop**: Complex autonomous tasks with completion criteria (build a feature, write tests)
+- **`/loop`**: Simple recurring checks (monitor build status, poll deploy, re-run tests)
+
+---
+
+## ⏪ `/rewind` — Rollback When Things Go Wrong
+
+Made a wrong turn? `/rewind` rolls back without losing everything:
+
+```bash
+# Interactive rollback
+/rewind
+
+# Quick rollback: press Escape twice (Esc+Esc)
+```
+
+`/rewind` gives you three options:
+
+| Option | What It Does |
+|--------|-------------|
+| **Conversation only** | Undo Claude's last messages, keep code changes |
+| **Code only** | Revert file changes, keep conversation context |
+| **Both** | Full rollback to previous checkpoint |
+
+Claude creates **automatic checkpoints** at each user prompt. `/rewind` returns to the previous checkpoint.
+
+This is especially useful in Ralph Loops — if iteration 3 goes sideways, `/rewind` to the state after iteration 2 and try a different approach.
+
+---
+
 ## ⚡ Quick Reference
 
 ```bash

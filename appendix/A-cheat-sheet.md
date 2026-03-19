@@ -16,6 +16,10 @@
 | **User Settings** | `~/.claude/settings.json` | Global user-level preferences |
 | **MCP Config** | `.claude/settings.json` → `mcpServers` | MCP server connections |
 | **Hooks** | `.claude/settings.json` → `hooks` | Pre/post event triggers |
+| **Local Settings** | `.claude/settings.local.json` | Personal overrides (auto-gitignored) |
+| **Rules** | `.claude/rules/*.md` | Topic-specific modular rules |
+| **REVIEW.md** | `./REVIEW.md` | Code review customization |
+| **User Config** | `~/.claude.json` | Theme, OAuth, MCP caches (don't edit manually) |
 
 ---
 
@@ -65,24 +69,43 @@ flowchart TD
 | `/init` | Initialize CLAUDE.md for current project |
 | `/compact` | Compress conversation context to save tokens |
 | `Escape` | Cancel current AI generation |
+| `Escape` × 2 | Quick `/rewind` to last checkpoint |
+| `/rewind` | Rollback conversation, code, or both |
+| `/loop 5m /cmd` | Run a command every 5 minutes (default: 10m) |
+| `/memory` | Toggle auto memory on/off |
 | `#` (in prompt) | Reference a file path |
-| `@` (in prompt) | Reference a person/agent |
+| `@` (in prompt) | Reference a resource from MCP server |
 
 ### CLI Flags
 
 ```bash
-# Headless mode (no interactive UI)
+# Headless mode (no interactive UI — for CI/CD)
 claude --headless -p "Your prompt here"
 
+# Print output only (for piping)
+claude --print -p "Your prompt"
+
 # Specify model
-claude --model claude-sonnet-4-20250514
+claude --model claude-sonnet-4-6
 
 # Resume last conversation
 claude --continue
 
-# Print output only (for piping)
-claude --print -p "Your prompt"
+# Start a cloud session (remote execution)
+claude --remote
+
+# Skip permission prompts (CI only — never locally!)
+claude --dangerously-skip-permissions
 ```
+
+### Permission Modes (Quick Reference)
+
+| Mode | When |
+|------|------|
+| Default | Read-only, asks before writes |
+| Approved list | Auto-approve specific tools you've allowed |
+| Trust project | Follow `.claude/settings.json` permissions |
+| `--dangerously-skip-permissions` | CI/CD only — auto-approve everything |
 
 ---
 

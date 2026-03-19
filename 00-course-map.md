@@ -24,16 +24,19 @@ graph LR
         C1[09 Agent Teams] --> C2[10 MCP Servers]
         C2 --> C3[11 Custom MCP]
         C3 --> C4[12 Ralph Loops]
+        C4 --> C5[28 Agent SDK]
     end
 
     subgraph P4["📋 Part 4 — Workflows"]
         D1[13 PRD Pipeline] --> D2[14 Plan Mode]
         D2 --> D3[15 Jira Integration]
+        D3 --> D4[26 CI/CD Automation]
+        D4 --> D5[27 Code Review]
     end
 
     A4 --> B1
     B4 --> C1
-    C4 --> D1
+    C5 --> D1
 
     style P1 fill:#d4edda,stroke:#28a745
     style P2 fill:#cce5ff,stroke:#007bff
@@ -50,8 +53,8 @@ graph LR
 | 💥 **1. Foundations** | ~15 min | Memory + Prompting | CLAUDE.md for TaskPulse |
 | ⚡ **2. Power Tools** | ~12 min | Automation | Skills, Commands, Hooks |
 | 🐝 **3. Agentic** | ~12 min | Parallelism | Agent Teams, MCP, Loops |
-| 📋 **4. Workflows** | ~10 min | Process | PRD → Code Pipeline |
-| 🎯 **5. Scenarios** | ~15 min | Daily Work | 10 Playbooks |
+| 📋 **4. Workflows** | ~15 min | Process | PRD → Code → CI/CD Pipeline |
+| 🎯 **5. Scenarios** | ~20 min | Daily Work | 10 Playbooks + Cloud Sessions |
 
 ---
 
@@ -82,12 +85,16 @@ graph LR
 
 ### 🗓️ Week 4 — "AI is shipping features while I review"
 → [12 Ralph Loops](Part%203%20—%20Agentic%20Patterns/12-ralph-loops.md) — Autonomous loops
+→ [28 Agent SDK](Part%203%20—%20Agentic%20Patterns/28-agent-sdk.md) — Build custom agents
 → [13 PRD Pipeline](Part%204%20—%20Workflow%20Methodologies/13-prd-driven-dev.md) — Spec to code
 → [14 Plan Mode](Part%204%20—%20Workflow%20Methodologies/14-plan-mode-mastery.md) — Think first
 → [15 Jira Integration](Part%204%20—%20Workflow%20Methodologies/15-jira-integration.md) — Full loop
+→ [26 CI/CD Automation](Part%204%20—%20Workflow%20Methodologies/26-ci-cd-automation.md) — Pipeline integration
+→ [27 Code Review](Part%204%20—%20Workflow%20Methodologies/27-code-review.md) — Automated PR review
 
 ### 🗓️ Month 2+ — "I pick the right approach for each task"
 → [Part 5 Scenarios](Part%205%20—%20Daily%20Scenarios/) — Your daily playbook
+→ [29 Cloud Sessions](Part%205%20—%20Daily%20Scenarios/29-cloud-sessions.md) — Run Claude in the cloud
 
 ---
 

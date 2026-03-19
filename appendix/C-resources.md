@@ -20,6 +20,22 @@
 
 ---
 
+## 🤖 Agent SDK & CI/CD
+
+| Resource | Link | What You'll Learn |
+|----------|------|-------------------|
+| Agent SDK Overview | [platform.claude.com/docs/en/agent-sdk](https://platform.claude.com/docs/en/agent-sdk/overview) | Build custom agents with Python/TS |
+| Agent SDK Python | [platform.claude.com/docs/en/agent-sdk/python](https://platform.claude.com/docs/en/agent-sdk/python) | Python SDK reference |
+| Agent SDK Quickstart | [platform.claude.com/docs/en/agent-sdk/quickstart](https://platform.claude.com/docs/en/agent-sdk/quickstart) | Get started in 5 minutes |
+| Claude Code Action | [github.com/anthropics/claude-code-action](https://github.com/anthropics/claude-code-action) | Official GitHub Action for CI/CD |
+| Claude Code on the Web | [code.claude.com/docs/en/claude-code-on-the-web](https://code.claude.com/docs/en/claude-code-on-the-web) | Cloud sessions docs |
+| Code Review Setup | [code.claude.com/docs/en/code-review](https://code.claude.com/docs/en/code-review) | Automated PR review |
+| Sandboxing Architecture | [anthropic.com/engineering/claude-code-sandboxing](https://www.anthropic.com/engineering/claude-code-sandboxing) | OS-level isolation design |
+| GitLab CI/CD Integration | [code.claude.com/docs/en/gitlab-ci-cd](https://code.claude.com/docs/en/gitlab-ci-cd) | GitLab event-driven setup |
+| Claude Code + Slack | [anthropic.com/news/claude-code-slack](https://www.anthropic.com/news) | Delegate tasks from Slack |
+
+---
+
 ## 🛠️ MCP Servers for Mobile Devs
 
 ### 🏆 Must-Have
@@ -105,6 +121,8 @@
 | [Ralph Claude Code](https://github.com/frankbria/ralph-claude-code) | Ralph Loop plugin |
 | [AI PRD Workflow](https://github.com/nurettincoban/ai-prd-workflow) | PRD → RFC → Code templates |
 | [Awesome MCP Servers](https://github.com/punkpeye/awesome-mcp-servers) | MCP server directory |
+| [Claude Code Action](https://github.com/anthropics/claude-code-action) | Official GitHub Action for automated PR review |
+| [Claude Agent SDK (Python)](https://github.com/anthropics/claude-agent-sdk-python) | Python SDK for building custom agents |
 
 ---
 

@@ -63,6 +63,7 @@ Each hook has:
 | `Notification` | 🔔 Claude sends notification | Custom alerts (Slack, sound) |
 | `Stop` | 🛑 Session ends | Auto-restart loops! |
 | `SubagentStop` | 🐣 Subagent finishes | Chain tasks together |
+| `SessionStart` | 🌐 Cloud session begins | Install deps, configure env |
 
 ---
 
@@ -300,6 +301,92 @@ fi
 echo "✅ All tests passed."
 exit 0
 ```
+
+---
+
+## 🔒 Sandboxing — OS-Level Protection
+
+Hooks are your custom guardrails. But Claude Code also has **built-in sandboxing** using OS-level primitives:
+
+| Platform | Technology | What It Does |
+|----------|-----------|--------------|
+| Linux | bubblewrap | Filesystem and network isolation |
+| macOS | seatbelt | App sandbox profiles |
+
+Sandboxing results:
+- **84% fewer permission prompts** — Claude can read safely without asking
+- **95% reduction** in prompt injection attack surface
+
+By default, Claude Code runs in a read-only sandbox. It asks before writing files or running commands. You can fine-tune this with permission settings.
+
+---
+
+## 🛡️ Permission Modes
+
+Claude Code has **four permission modes** that control what Claude can do without asking:
+
+| Mode | Behavior |
+|------|----------|
+| **Default** | Read-only. Asks before writes and bash commands |
+| **Approved list** | Auto-approve specific tools/commands you've allowed |
+| **Trust project** | Follow `.claude/settings.json` permissions for this project |
+| **YOLO** | `--dangerously-skip-permissions` — auto-approve everything (CI only!) |
+
+Fine-grained control via settings:
+
+```json
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm test)",
+      "Bash(swift build)",
+      "Read",
+      "Glob",
+      "Grep"
+    ],
+    "deny": [
+      "Bash(rm -rf *)",
+      "Bash(git push --force)"
+    ]
+  }
+}
+```
+
+### `settings.local.json` — Personal Overrides
+
+Your personal settings that **don't get committed** to the repo:
+
+```json
+// .claude/settings.local.json (auto-gitignored)
+{
+  "permissions": {
+    "allow": ["Bash(./my-custom-script.sh)"]
+  },
+  "env": {
+    "MY_API_KEY": "sk-..."
+  }
+}
+```
+
+Use `settings.local.json` for: API keys, personal tool paths, local MCP server configs, and any settings you don't want in version control.
+
+### Settings Hierarchy
+
+Settings are merged in order of specificity (later overrides earlier):
+
+```
+~/.claude/settings.json        ← User-global (all projects)
+.claude/settings.json           ← Project-shared (committed to repo)
+.claude/settings.local.json     ← Project-personal (auto-gitignored)
+```
+
+| File | Scope | Committed? | Use For |
+|------|-------|-----------|---------|
+| `~/.claude/settings.json` | All projects | N/A (home dir) | Global hooks, default permissions |
+| `.claude/settings.json` | This project | Yes | Team-shared hooks, MCP servers |
+| `.claude/settings.local.json` | This project, you only | No (gitignored) | API keys, personal MCP configs |
+
+**Note:** `~/.claude.json` (without the directory) stores theme, OAuth tokens, notification preferences, and MCP caches. It's not a settings file — don't edit it manually.
 
 ---
 
