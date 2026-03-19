@@ -370,6 +370,24 @@ Your personal settings that **don't get committed** to the repo:
 
 Use `settings.local.json` for: API keys, personal tool paths, local MCP server configs, and any settings you don't want in version control.
 
+### Settings Hierarchy
+
+Settings are merged in order of specificity (later overrides earlier):
+
+```
+~/.claude/settings.json        ← User-global (all projects)
+.claude/settings.json           ← Project-shared (committed to repo)
+.claude/settings.local.json     ← Project-personal (auto-gitignored)
+```
+
+| File | Scope | Committed? | Use For |
+|------|-------|-----------|---------|
+| `~/.claude/settings.json` | All projects | N/A (home dir) | Global hooks, default permissions |
+| `.claude/settings.json` | This project | Yes | Team-shared hooks, MCP servers |
+| `.claude/settings.local.json` | This project, you only | No (gitignored) | API keys, personal MCP configs |
+
+**Note:** `~/.claude.json` (without the directory) stores theme, OAuth tokens, notification preferences, and MCP caches. It's not a settings file — don't edit it manually.
+
 ---
 
 ## ⚠️ The Guardrail Stack

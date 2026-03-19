@@ -19,6 +19,7 @@
 | **Local Settings** | `.claude/settings.local.json` | Personal overrides (auto-gitignored) |
 | **Rules** | `.claude/rules/*.md` | Topic-specific modular rules |
 | **REVIEW.md** | `./REVIEW.md` | Code review customization |
+| **User Config** | `~/.claude.json` | Theme, OAuth, MCP caches (don't edit manually) |
 
 ---
 
