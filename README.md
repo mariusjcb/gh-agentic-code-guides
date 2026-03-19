@@ -33,20 +33,25 @@ All examples use **TaskPulse** — a collaborative task manager app.
 
 ### [📍 Course Map](00-course-map.md) — Start Here!
 
-### Part 1 — 💥 Foundations (~15 min)
+### Part 1 — 💥 Foundations (~18 min)
 | # | Guide | What You'll Learn |
 |---|-------|-------------------|
 | 01 | [Why AI Fails](Part%201%20—%20Foundations/01-why-ai-fails.md) | The problem: why AI makes so many mistakes |
+| 01b | [Catching AI Mistakes](Part%201%20—%20Foundations/01b-catching-ai-mistakes.md) | Validation strategies and hallucination detection |
 | 02 | [CLAUDE.md Basics](Part%201%20—%20Foundations/02-claude-md-basics.md) | Give AI persistent memory about your project |
 | 03 | [AGENTS.md](Part%201%20—%20Foundations/03-agents-md.md) | Universal config for all AI tools |
 | 04 | [Smart Prompting](Part%201%20—%20Foundations/04-smart-prompting.md) | The CRAC framework + 10 mobile templates |
+| 04b | [Model Selection](Part%201%20—%20Foundations/04b-model-selection.md) | Opus vs Sonnet vs Haiku + extended thinking |
 
-### Part 2 — ⚡ Power Tools (~12 min)
+### Part 2 — ⚡ Power Tools (~18 min)
 | # | Guide | What You'll Learn |
 |---|-------|-------------------|
 | 05 | [Skills](Part%202%20—%20Power%20Tools/05-skills.md) | Auto-triggering reusable instructions |
+| 05b | [Context Management](Part%202%20—%20Power%20Tools/05b-context-management.md) | Context windows, `/compact`, session strategies |
+| 05c | [/memory & Preferences](Part%202%20—%20Power%20Tools/05c-memory-preferences.md) | Persistent personal preferences across sessions |
 | 06 | [Commands](Part%202%20—%20Power%20Tools/06-commands.md) | Custom `/slash` commands for your workflow |
 | 07 | [Hooks](Part%202%20—%20Power%20Tools/07-hooks.md) | Guardrails that catch what prompts miss |
+| 07b | [Permissions Deep Dive](Part%202%20—%20Power%20Tools/07b-permissions-model.md) | Permission modes, allowlists, security scoping |
 | 08 | [Subagents](Part%202%20—%20Power%20Tools/08-subagents.md) | Focused workers for parallel tasks |
 
 ### Part 3 — 🐝 Agentic Patterns (~12 min)
@@ -57,12 +62,17 @@ All examples use **TaskPulse** — a collaborative task manager app.
 | 11 | [Custom MCP](Part%203%20—%20Agentic%20Patterns/11-custom-mcp.md) | Build your own MCP server |
 | 12 | [Ralph Loops](Part%203%20—%20Agentic%20Patterns/12-ralph-loops.md) | Walk away, come back to done |
 
-### Part 4 — 📋 Workflow Methodologies (~10 min)
+### Part 4 — 📋 Workflow Methodologies (~20 min)
 | # | Guide | What You'll Learn |
 |---|-------|-------------------|
 | 13 | [PRD-Driven Dev](Part%204%20—%20Workflow%20Methodologies/13-prd-driven-dev.md) | PRD → RFC → Tickets → Code pipeline |
 | 14 | [Plan Mode](Part%204%20—%20Workflow%20Methodologies/14-plan-mode-mastery.md) | Think before you code |
 | 15 | [Jira Integration](Part%204%20—%20Workflow%20Methodologies/15-jira-integration.md) | Close the ticket ↔ code loop |
+| 26 | [CI/CD Automation](Part%204%20—%20Workflow%20Methodologies/26-ci-cd-automation.md) | GitHub Actions & pipeline integration |
+| 26b | [Security Hardening](Part%204%20—%20Workflow%20Methodologies/26b-security-hardening.md) | Secure AI workflows, secret management |
+| 27 | [Code Review](Part%204%20—%20Workflow%20Methodologies/27-code-review.md) | Automated PR review |
+| 27b | [Cost Management](Part%204%20—%20Workflow%20Methodologies/27b-cost-management.md) | Token budgeting & optimization |
+| 27c | [Team Onboarding](Part%204%20—%20Workflow%20Methodologies/27c-team-onboarding.md) | Scaling AI adoption across your team |
 
 ### Part 5 — 🎯 Daily Scenarios (~15 min)
 | # | Scenario | When To Use |
@@ -77,6 +87,11 @@ All examples use **TaskPulse** — a collaborative task manager app.
 | 23 | [Feature Flags](Part%205%20—%20Daily%20Scenarios/23-feature-flags.md) | Safe rollouts |
 | 24 | [Update Docs](Part%205%20—%20Daily%20Scenarios/24-update-docs.md) | Keeping docs current |
 | 25 | [Create PRD](Part%205%20—%20Daily%20Scenarios/25-create-prd.md) | From idea to spec |
+| 29 | [Cloud Sessions](Part%205%20—%20Daily%20Scenarios/29-cloud-sessions.md) | Run Claude in the cloud |
+| 30 | [Testing AI Code](Part%205%20—%20Daily%20Scenarios/30-testing-ai-code.md) | Test-first AI workflows & TDD |
+| 31 | [Refactoring](Part%205%20—%20Daily%20Scenarios/31-refactoring.md) | Systematic refactoring with AI |
+| 32 | [Performance](Part%205%20—%20Daily%20Scenarios/32-performance.md) | AI-assisted performance profiling |
+| 33 | [Evaluation](Part%205%20—%20Daily%20Scenarios/33-evaluation.md) | Measuring AI output quality |
 
 ### 📎 Appendix
 | File | What's Inside |
@@ -91,12 +106,12 @@ All examples use **TaskPulse** — a collaborative task manager app.
 
 | Section | Time | Format |
 |---------|------|--------|
-| Part 1 — Foundations | ~15 min | Live demo + examples |
-| Part 2 — Power Tools | ~12 min | Live coding |
+| Part 1 — Foundations | ~18 min | Live demo + examples |
+| Part 2 — Power Tools | ~18 min | Live coding |
 | Part 3 — Agentic Patterns | ~12 min | Demo + architecture |
-| Part 4 — Methodologies | ~10 min | Workflow walkthrough |
-| Part 5 — Scenarios | ~15 min | Quick reference tour |
-| **Total** | **~64 min** | |
+| Part 4 — Methodologies | ~20 min | Workflow walkthrough |
+| Part 5 — Scenarios | ~25 min | Quick reference tour |
+| **Total** | **~93 min** | |
 
 ---
 

@@ -213,6 +213,50 @@ xcodebuild test -scheme TaskPulse -destination 'platform=iOS Simulator,name=iPho
 
 ---
 
+## 🧠 Model Selection Quick Guide
+
+| Model | Best For | Speed | Cost |
+|-------|----------|-------|------|
+| **Opus** | Complex architecture, multi-file refactoring, planning | Slowest | $$$ |
+| **Sonnet** | Daily coding, features, bug fixes, code review | Medium | $$ |
+| **Haiku** | Quick questions, boilerplate, single-file edits | Fastest | $ |
+
+**Rule of thumb:** Start with Sonnet. Upgrade to Opus for architecture. Downgrade to Haiku for boilerplate.
+
+---
+
+## 🧹 Context Management Quick Guide
+
+| Signal | Action |
+|--------|--------|
+| Claude repeats itself or forgets instructions | Run `/compact` |
+| Context is 70%+ full | Run `/compact` or start fresh |
+| Switching to a different feature | Start a new session |
+| Long exploration phase complete | `/compact` before implementation |
+
+---
+
+## 🔐 Permission Modes
+
+| Mode | When | Risk Level |
+|------|------|------------|
+| Default (ask for everything) | Normal development | Low |
+| Allowlisted tools | Trusted daily workflows | Medium |
+| `--dangerously-skip-permissions` | CI/CD pipelines only | High |
+
+---
+
+## 💰 Cost Multipliers by Workflow
+
+| Approach | Token Cost | When Worth It |
+|----------|-----------|---------------|
+| Single session | 1× | Most tasks |
+| Subagent delegation | 1.5–2× | Parallel investigations |
+| 3-teammate Agent Team | 3–5× | Independent workstreams |
+| Ralph Loop (N iterations) | N× | Autonomous implementation |
+
+---
+
 ## 🎯 The Golden Rules
 
 1. **Context is everything** — CLAUDE.md > clever prompting
@@ -222,6 +266,9 @@ xcodebuild test -scheme TaskPulse -destination 'platform=iOS Simulator,name=iPho
 5. **Skills > repeating yourself** — If you've said it 3x, make it a skill
 6. **Flags > big-bang launches** — Ship safely with feature flags
 7. **Docs travel with code** — Doc-as-code, not doc-in-wiki
+8. **Match model to task** — Opus for architecture, Sonnet for coding, Haiku for questions
+9. **Trust but verify** — Boilerplate = trust, business logic = review, security = never trust
+10. **Measure to improve** — Track bug rates, PR cycles, and CLAUDE.md compliance
 
 ---
 
