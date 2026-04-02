@@ -1,10 +1,23 @@
-# Gemini CLI for Mobile Engineers -- Zero to Autonomous in 10 Minutes
+<div align="center">
+
+# Gemini CLI for Mobile Engineers
+
+### Zero to Autonomous in 10 Minutes
 
 > Everything you need to stop AI from hallucinating and start shipping with it.
 
+[![Gemini CLI](https://img.shields.io/badge/Gemini_CLI-4285F4?style=for-the-badge&logo=google&logoColor=white)](https://github.com/google-gemini/gemini-cli)
+[![iOS](https://img.shields.io/badge/iOS-000000?style=for-the-badge&logo=apple&logoColor=white)]()
+[![Android](https://img.shields.io/badge/Android-3DDC84?style=for-the-badge&logo=android&logoColor=white)]()
+[![10 min read](https://img.shields.io/badge/10_min_read-FF6F00?style=for-the-badge&logo=clockify&logoColor=white)]()
+
+</div>
+
 **Contents:** [Why AI Fails](#1-why-ai-fails) | [Three Concepts](#2-three-concepts) | [Setup](#3-setup) | [Power Tools](#4-power-tools) | [Anti-Hallucination](#5-anti-hallucination-system) | [Daily Playbooks](#6-daily-playbooks) | [Advanced](#7-advanced-quick-reference) | [Golden Rules](#8-golden-rules)
 
----
+<br>
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
 
 ## 1. Why AI Fails
 
@@ -17,13 +30,44 @@
 
 **Takeaway:** AI without context = chaos. AI with context + guardrails = superpower. This guide gives you both.
 
----
+```
+  WITHOUT guardrails                    WITH guardrails
+  ┌─────────────────┐                  ┌─────────────────┐
+  │  ░░░░░░░░░░░░░  │  1.7x MORE      │  ▓▓▓▓▓▓▓▓▓▓▓▓▓  │  25% FEWER
+  │  ░░ BUGS ░░░░░  │  bugs            │  ▓▓ QUALITY ▓▓  │  bugs
+  │  ░░░░░░░░░░░░░  │                  │  ▓▓▓▓▓▓▓▓▓▓▓▓▓  │
+  └─────────────────┘                  └─────────────────┘
+```
+
+<br>
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
 
 ## 2. Three Concepts
+
+> ![Context](https://img.shields.io/badge/1-Context_Engineering-blue?style=flat-square) ![Memory](https://img.shields.io/badge/2-Memory_Engineering-green?style=flat-square) ![Prompt](https://img.shields.io/badge/3-Prompt_Engineering-orange?style=flat-square)
 
 ### Context Engineering
 
 AI forgets everything between sessions. `GEMINI.md` is your fix -- a markdown file at your project root that Gemini reads **automatically every session**. It's your AI's onboarding doc.
+
+```
+  Every new session:
+
+  ┌──────────────┐      ┌──────────────┐      ┌──────────────┐
+  │   Session 1  │      │   Session 2  │      │   Session 3  │
+  │              │      │              │      │              │
+  │  "What arch  │      │  "What arch  │      │  "What arch  │
+  │   is this?"  │      │   is this?"  │      │   is this?"  │
+  └──────┬───────┘      └──────┬───────┘      └──────┬───────┘
+         │                     │                     │
+         ▼                     ▼                     ▼
+  ┌──────────────────────────────────────────────────────────┐
+  │                      GEMINI.md                           │
+  │  "MVVM + SwiftUI. DI via Swinject. Tests use XCTest."   │
+  │  Always loaded. Never forgotten. Never repeated.         │
+  └──────────────────────────────────────────────────────────┘
+```
 
 ### Memory Engineering
 
@@ -65,9 +109,13 @@ GOOD:
 
 **Try it:** Pick your next task. Write a CRAC prompt before asking Gemini.
 
----
+<br>
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
 
 ## 3. Setup
+
+> ![Step 1](https://img.shields.io/badge/Step_1-GEMINI.md-blue?style=flat-square) ![Step 2](https://img.shields.io/badge/Step_2-Folder_Structure-green?style=flat-square) ![Step 3](https://img.shields.io/badge/Step_3-CLI_Commands-orange?style=flat-square)
 
 ### GEMINI.md Template
 
@@ -152,9 +200,13 @@ Universal config that works across **all** AI coding tools (Gemini, Cursor, Copi
 
 **Try it:** Copy the GEMINI.md template, fill in your project, start a Gemini session, ask: *"What architecture does this project use?"*
 
----
+<br>
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
 
 ## 4. Power Tools
+
+> ![GEMINI.md](https://img.shields.io/badge/GEMINI.md-Memory-blue?style=flat-square) ![Agent](https://img.shields.io/badge/Agent-Auto--triggered-purple?style=flat-square) ![Command](https://img.shields.io/badge/Command-On--demand-teal?style=flat-square) ![Hook](https://img.shields.io/badge/Hook-Enforced-red?style=flat-square) ![Subagent](https://img.shields.io/badge/Subagent-Focused-yellow?style=flat-square) ![Multi-Agent](https://img.shields.io/badge/Multi--Agent-Parallel-green?style=flat-square) ![MCP](https://img.shields.io/badge/MCP-External-orange?style=flat-square) ![Ralph](https://img.shields.io/badge/Ralph_Loop-Autonomous-black?style=flat-square)
 
 ### Tool Decision Matrix
 
@@ -203,6 +255,8 @@ Enable in `.gemini/settings.json`:
 
 **Try it:** Create an agent for your most repeated pattern. Ask Gemini to build a screen -- it auto-loads.
 
+---
+
 ### Slash Command
 
 On-demand tools triggered with `/command-name`.
@@ -233,6 +287,8 @@ If any test fails, analyze the failure and suggest a fix.
 ```
 
 **Try it:** Create `/build-ios` and `/test-module`. Run `/build-ios` in your next session.
+
+---
 
 ### Hook
 
@@ -293,6 +349,8 @@ exit 0
 
 **Try it:** Add the block-main-commit hook. Try committing to main -- Gemini gets blocked.
 
+---
+
 ### Subagent
 
 Focused workers with their own context window. They investigate and report back without polluting your main session.
@@ -308,6 +366,8 @@ Report back with a summary table."
 ```
 
 **When to use:** Heavy codebase exploration, parallel investigation of multiple modules, focused code review passes (memory leaks, thread safety, accessibility -- each as a separate subagent).
+
+---
 
 ### Multi-Agent Coordination
 
@@ -333,7 +393,31 @@ Each agent builds and verifies independently before reporting back.
 Integration point: all agents share the ChatMessage model."
 ```
 
+```
+  Multi-Agent Architecture:
+
+  ┌─────────────────────────────────────────────────┐
+  │            STRATEGIST (Main Session)             │
+  │         Coordinates + Reviews + Merges           │
+  └──────────┬──────────────┬──────────────┬────────┘
+             │              │              │
+             ▼              ▼              ▼
+  ┌──────────────┐ ┌──────────────┐ ┌──────────────┐
+  │  UI Agent    │ │  Data Agent  │ │  Test Agent  │
+  │  SwiftUI /   │ │  Repository  │ │  Unit tests  │
+  │  Compose     │ │  + Service   │ │  + Mocks     │
+  └──────┬───────┘ └──────┬───────┘ └──────┬───────┘
+         │                │                │
+         ▼                ▼                ▼
+  ┌─────────────────────────────────────────────────┐
+  │              Shared Filesystem                   │
+  │    (Each agent writes to its own directory)      │
+  └─────────────────────────────────────────────────┘
+```
+
 **Try it:** For your next feature, split it into UI + Data + Tests and run 3 agents in parallel.
+
+---
 
 ### MCP Servers
 
@@ -366,9 +450,21 @@ Add servers with: `gemini mcp add [server-name]`
 
 **Try it:** Add the GitHub MCP server. Ask Gemini to list your open PRs.
 
+---
+
 ### Ralph Loop
 
 Autonomous improvement cycles. Give Gemini a task, walk away, come back to done.
+
+```
+  ┌──────────┐     ┌──────────┐     ┌──────────┐     ┌──────────┐
+  │ Iter. 1  │     │ Iter. 2  │     │ Iter. 3  │     │ Iter. 4  │
+  │ Scaffold │ ──▶ │Implement │ ──▶ │Fix tests │ ──▶ │  DONE!   │
+  │          │     │          │     │          │     │  ✓ ✓ ✓   │
+  └──────────┘     └──────────┘     └──────────┘     └──────────┘
+   "I'm in          "I'm              "My cat's        "I'm
+    danger!"         learnding!"       breath..."       helping!"
+```
 
 `ralph.sh`:
 ```bash
@@ -410,6 +506,8 @@ chmod +x ralph.sh && ./ralph.sh
 
 **Try it:** Pick a small feature. Fill in the placeholders. Run it and watch Gemini iterate.
 
+---
+
 ### Plan Mode
 
 Think before coding. `/plan` enters a mode where Gemini generates architecture plans without writing code.
@@ -427,11 +525,30 @@ Review the plan. Refine 2-3 times. Then approve and Gemini executes.
 
 **Try it:** Before your next feature, start with `/plan`. Review the architecture before any code is written.
 
----
+<br>
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
 
 ## 5. Anti-Hallucination System
 
+> ![Critical](https://img.shields.io/badge/CRITICAL-This_section_prevents_AI_disasters-red?style=for-the-badge)
+
 ### The Guardrail Stack
+
+```
+  RELIABILITY
+       ▲
+       │
+  ┌────┴─────────────────────────────────────────┐
+  │  ██████████████████████  HOOKS               │  100% — Always runs
+  ├──────────────────────────────────────────────┤
+  │  ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓░░░░  AGENTS              │   85% — Usually followed
+  ├──────────────────────────────────────────────┤
+  │  ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓░░░░  GEMINI.md           │   85% — Usually followed
+  ├──────────────────────────────────────────────┤
+  │  ░░░░░░░░░░░░░░░░░░░░  PROMPTING            │   ~60% — Variable
+  └──────────────────────────────────────────────┘
+```
 
 | Layer | Type | Reliability |
 |-------|------|-------------|
@@ -440,7 +557,7 @@ Review the plan. Refine 2-3 times. Then approve and Gemini executes.
 | **GEMINI.md** | Memory (project rules) | Usually followed |
 | **Prompting** | Requests (your words) | Variable |
 
-### 10 Rules
+### 10 Rules to Eliminate Hallucination
 
 1. **Reference existing code** -- "Follow patterns in `Features/TaskList/`" (not "use MVVM")
 2. **Constrain scope** -- "ONLY modify files in `Features/Chat/`"
@@ -471,9 +588,25 @@ Step 3: "Create a markdown table: SLO name, current target, where it's
 
 The pattern: **search broadly -> cross-reference -> verify completeness -> present structured**.
 
----
+```
+  The Verification Pattern:
+
+  ┌──────────┐     ┌──────────────┐     ┌──────────┐     ┌───────────┐
+  │  SEARCH  │     │    CROSS-    │     │  VERIFY  │     │ PRESENT   │
+  │ broadly  │ ──▶ │  REFERENCE   │ ──▶ │  complete │ ──▶ │structured │
+  │          │     │              │     │ -ness    │     │           │
+  └──────────┘     └──────────────┘     └──────────┘     └───────────┘
+```
+
+<br>
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
 
 ## 6. Daily Playbooks
+
+> Pick the playbook that matches your task. Each one is a copy-paste workflow.
+
+> ![Explore](https://img.shields.io/badge/Explore-blue?style=flat-square) ![Research](https://img.shields.io/badge/Research-purple?style=flat-square) ![Risk](https://img.shields.io/badge/Risk-red?style=flat-square) ![Debug](https://img.shields.io/badge/Debug-orange?style=flat-square) ![Fix](https://img.shields.io/badge/Fix-yellow?style=flat-square) ![Build](https://img.shields.io/badge/Build-green?style=flat-square) ![Update](https://img.shields.io/badge/Update-teal?style=flat-square) ![Ship](https://img.shields.io/badge/Ship-black?style=flat-square) ![Docs](https://img.shields.io/badge/Docs-gray?style=flat-square) ![Plan](https://img.shields.io/badge/Plan-navy?style=flat-square)
 
 #### Unknown Codebase
 
@@ -493,6 +626,8 @@ architecture pattern, key directories, build commands, conventions, DI approach.
 ```
 
 *Gotcha: Always review the generated GEMINI.md -- AI may guess wrong about conventions.*
+
+---
 
 #### RFC / SPIKE
 
@@ -514,6 +649,8 @@ and a clear recommendation.
 
 *Gotcha: Define evaluation criteria BEFORE research starts to prevent bias.*
 
+---
+
 #### FMEA Analysis
 
 **When:** Before launching features, security review, architecture changes.
@@ -534,6 +671,8 @@ auth expiry, background task limits, memory pressure. Format as markdown table.
 
 *Gotcha: AI defaults to medium scores. Challenge every rating with "why 5 and not 3 or 7?"*
 
+---
+
 #### Bug Investigation
 
 **When:** Crashes, performance issues, flaky tests.
@@ -553,6 +692,8 @@ For each: supporting evidence, contradicting evidence, how to verify.
 
 *Gotcha: Don't let AI jump to fixing. Investigate first, fix second.*
 
+---
+
 #### Bug Fix
 
 **When:** Root cause confirmed, fix needed.
@@ -571,6 +712,8 @@ No refactoring. No "while we're here" improvements.
 ```
 
 *Gotcha: AI loves to "fix" bugs by refactoring. Pin it to minimal change.*
+
+---
 
 #### New Feature
 
@@ -594,6 +737,8 @@ No ticket should touch more than 3-5 files.
 
 *Gotcha: Token ceiling -- <50 requirements = 95% accuracy, 150-300 = <50%. Keep tickets small.*
 
+---
+
 #### Update Feature
 
 **When:** Extending existing functionality.
@@ -613,6 +758,8 @@ Add tests for new behavior. Existing tests must still pass.
 
 *Gotcha: "Understand before changing" -- always read existing code first.*
 
+---
+
 #### Feature Flags
 
 **When:** Safe rollout, A/B testing, kill switches.
@@ -631,6 +778,8 @@ Test both states. No behavioral change to existing code when flag is OFF.
 
 *Gotcha: Test the flag-OFF path. AI often forgets the old behavior still needs to work.*
 
+---
+
 #### Update Docs
 
 **When:** Architecture changed, APIs evolved, onboarding gaps.
@@ -648,6 +797,8 @@ best practices that aren't in the code. Preserve existing doc structure.
 ```
 
 *Gotcha: AI invents "best practices" in docs. Pin it to what the code actually does.*
+
+---
 
 #### Create PRD
 
@@ -672,7 +823,9 @@ Keep requirements atomic and testable.
 
 *Gotcha: Non-goals are your best weapon against AI gold-plating. Be generous with them.*
 
----
+<br>
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
 
 ## 7. Advanced Quick Reference
 
@@ -698,9 +851,23 @@ Keep requirements atomic and testable.
 
 Break large features into RFCs (one area per RFC) -> tickets (2-5 per RFC). Keep each ticket under 50 requirements.
 
----
+```
+  Requirements vs Accuracy:
+
+  95%+ ████████████████████░  < 50 requirements     ← Sweet spot
+  85%+ ████████████████░░░░░  50-150 requirements
+  <50% ██████████░░░░░░░░░░░  150-300 requirements  ← Danger zone
+       ─────────────────────
+       0%                100%
+```
+
+<br>
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
 
 ## 8. Golden Rules
+
+> ![Rules](https://img.shields.io/badge/MEMORIZE_THESE-7_rules_that_change_everything-gold?style=for-the-badge)
 
 1. **Context is everything** -- GEMINI.md beats clever prompting every time
 2. **Plan before code** -- `/plan` saves hours of rework
@@ -709,3 +876,19 @@ Break large features into RFCs (one area per RFC) -> tickets (2-5 per RFC). Keep
 5. **Agents over repeating yourself** -- Said it 3 times? Make it an agent
 6. **Small scope, high accuracy** -- <50 requirements = 95% accuracy
 7. **Non-goals prevent gold-plating** -- Tell AI what NOT to do, not just what to do
+
+<br>
+
+---
+
+<div align="center">
+
+**You've read the guide. Now go build something.**
+
+```
+  GEMINI.md  ──▶  /plan  ──▶  CRAC prompt  ──▶  Build + Test  ──▶  Ship
+```
+
+[![Start Now](https://img.shields.io/badge/Start_Now-Create_your_GEMINI.md-4285F4?style=for-the-badge&logo=google&logoColor=white)]()
+
+</div>
